@@ -16,7 +16,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-     <script src="assets/js/seguranca-adm.js" defer></script>  
+     <!-- <script src="assets/js/seguranca-adm.js" defer></script>   -->
 
 
     <script>
@@ -236,54 +236,29 @@ $("#form_cadastro").on("submit", function (e) {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
-    const form = new FormData(this);
-
-    let valor = form.get("valor");
-    valor = parseFloat(valor.replace("R$", "").replace(",", ".").trim());
-
-    const selectedOption = $("#id_sessao option:selected");
-
-    const dados = {
-        id_filme: form.get("id_filme"),
-        id_sessao: form.get("id_sessao"),
-        valor_unitario: valor,
-        data_sessao: selectedOption.data("data_sessao"),
-        horario: selectedOption.data("horario"),
-        id_sala: selectedOption.data("id_sala")
-    };
-
-    console.log("Enviando dados:", dados);
+    const valorStr = $("#valor").val();
+    const valor = parseFloat(valorStr.replace("R$", "").replace(",", ".").trim());
+    const idSessao = $("#id_sessao").val();
 
     $.ajax({
-        url: `http://192.168.1.123:5000/sessoes/${dados.id_sessao}`,
+        url: `http://192.168.1.123:5000/sessoes/promocao/${idSessao}`,
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + token
         },
-        data: JSON.stringify(dados),
+        data: JSON.stringify({ valor_promocional: valor }),
         success: function (response) {
-            Swal.fire({
-                title: "Sucesso!",
-                text: response.message || "Sessão atualizada com sucesso!",
-                icon: "success"
-            }).then(() => {
-                window.location.href = "homeeae.html";
-            });
+            Swal.fire("Sucesso!", response.message || "Promoção aplicada!", "success")
+                .then(() => window.location.href = "homeeae.html");
         },
         error: function (xhr) {
-            let mensagem = "Erro inesperado.";
-            if (xhr.responseJSON && xhr.responseJSON.error) {
-                mensagem = xhr.responseJSON.error;
-            }
-            Swal.fire({
-                title: "Erro!",
-                text: mensagem,
-                icon: "error"
-            });
+            const mensagem = xhr.responseJSON?.error || "Erro inesperado.";
+            Swal.fire("Erro!", mensagem, "error");
         }
     });
 });
+
 
 
 
