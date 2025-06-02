@@ -66,7 +66,6 @@
             carregarReservas();
         });
 
-        // Função para carregar dados do usuário da API
         function carregarDadosUsuario() {
             var token = localStorage.getItem("token");
 
@@ -105,7 +104,6 @@
             $.ajax(settings);
         }
 
-        // Função para carregar reservas do usuário da API
         function carregarReservas() {
             var token = localStorage.getItem("token");
 
@@ -149,7 +147,7 @@
     </script>
     <script>
         function voltarprahome() {
-            const tipoUsuario = localStorage.getItem("tipo"); // ou sessionStorage
+            const tipoUsuario = localStorage.getItem("tipo"); 
     
             if (tipoUsuario === "adm") {
                 window.location.href = "homeeae.html";
@@ -174,14 +172,14 @@
               <li><a href="cadastro.html" title="Cadastro">Cadastro</a></li>
             
             </ul>
-        </div><!--Col Footer 1-->        
+        </div>     
         <div class="colfooter">
            
            <h3 class="titleFooter"> Contato</h3>
            <p><i class="icon icon-mail"></i>primecine@gmail.com</p>
            <p><i class="icon icon-phone"></i> (00) 00000-0000</p>
            <p><i class="icon icon-whatsapp"></i> (11) 11111-1111</p>
-        </div><!--Col Footer 2-->
+        </div>
         <div class="colfooter">
            
            <h3 class="titleFooter"> Redes Sociais</h3>
@@ -201,10 +199,10 @@
                 </a>
            </div>
 
-        </div><!--Col Footer 3-->
+        </div>
         <div class="clear"></div>
     
-    </div><!--Contant-->
+    </div>
     <div class="main_footer_copy">
         
         <p class="m-b-footer"> PrimeCine - 2025 © todos os direitos reservados</p> 
