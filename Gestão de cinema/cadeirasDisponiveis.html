@@ -342,7 +342,8 @@
         const descricao = params.get("descricao")
         const precoUnitario = params.get("valor_unitario")
 
-        const dataFormatada = new Date(params.get("data_sessao")).toLocaleDateString('pt-BR');
+        const dataFormatada = new Date(data_sessao).toLocaleDateString('pt-BR');
+
         const horaFormatada = params.get("horario").slice(0, 5);
 
         document.getElementById("imgfilme").src = "http://192.168.1.123:5000/static/uploads/Filmes/" + id + ".jpeg"

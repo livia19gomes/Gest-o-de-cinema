@@ -155,7 +155,7 @@ function buscarFilme() {
     function carregarSessoes(idFilme) {
       const container = $(`#sessoes-${idFilme}`);
 
-      // Toggle se já carregado
+
       if (container.html().trim() !== "") {
         container.toggle();
         return;
@@ -223,6 +223,7 @@ function buscarFilme() {
                 let indiceAtual = 0;
         const slides = document.querySelector(".slides");
         const indicadores = document.querySelectorAll(".indicador");
+      
 
         var nome = localStorage.getItem("nome")
         document.getElementById("nome-visitante").innerHTML = nome
