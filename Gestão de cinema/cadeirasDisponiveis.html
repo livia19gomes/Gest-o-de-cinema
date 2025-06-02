@@ -16,7 +16,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="assets/js/seguranca.js" defer></script>
+     <script src="assets/js/seguranca.js" defer></script> 
 
     <title>Reservas- Prime Cine</title>
 </head>
@@ -328,7 +328,7 @@
     </footer>
 
 
-    <script>
+        <script>
 
 
         const params = new URLSearchParams(window.location.search);
@@ -385,7 +385,7 @@
 
 
             var settings = {
-                "url": "hhttp://192.168.1.123:5000/assentos_reservados/" + idSessao,
+                "url": "http://192.168.1.123:5000/assentos_reservados/" + idSessao,
                 "method": "GET",
                 "timeout": 0,
                 "success": function (retorno) {
