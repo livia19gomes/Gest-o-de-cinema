@@ -43,15 +43,15 @@
 
   <script>
   const params = new URLSearchParams(window.location.search);
-  const id_reserva = params.get('id_reserva');
+  const id_reserva = params.get('id');
 
   if (id_reserva) {
     document.getElementById("qrcode-pix").src = `http://192.168.1.127:5000/static/upload/qrcodes/pix_reserva_${id_reserva}.png`;
   } else {
     document.getElementById("qrcode-pix").alt = "QR code indisponível";
   }
-  
-</script>
+ </script>
+
 
   <script>
 
