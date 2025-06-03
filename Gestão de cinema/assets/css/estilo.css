@@ -576,16 +576,6 @@ img {
 
 /* RESPONSIVE DESIGN - MOBILE FIRST APPROACH */
 
-/* Large Desktop */
-@media (min-width: 1200px) {
-    header {
-        padding: 15px 60px;
-    }
-    
-    .logo {
-        width: 180px;
-    }
-}
 
 /* Desktop */
 @media (max-width: 1199px) {
