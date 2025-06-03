@@ -23,8 +23,10 @@ header {
     align-items: center;
     justify-content: space-between;
     background: black !important;
-    padding: 15px 5%;
+    padding: 5px 30px;
     color: white;
+    position: relative;
+
 }
 
 .div-header {
@@ -35,7 +37,7 @@ header {
 }
 
 .logo {
-    width: 150px;
+    width: 20vh;
     max-width: 100%;
 }
 
@@ -63,8 +65,8 @@ header {
     padding: 10px 15px;
     border: none;
     cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
+    border-radius: 5px;;
+    font-weight: bold
 }
 
 .btn-perfil:hover {
@@ -149,7 +151,8 @@ nav ul li a:hover {
 }
 
 .btn-perfil2 {
-    width: 43px;
+    width: 40px !important;
+    height: 40px !important;
 }
 
 .barra {
@@ -159,9 +162,7 @@ nav ul li a:hover {
     background-color: darkred;
 }
 
-.search input {
-    padding: 5px;
-}
+
 
 .carrossel-container {
     position: relative;
@@ -511,7 +512,7 @@ img, svg {
 .search-box {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: 15px;
     margin-left: auto;
     margin-right: 8vh;
 }
@@ -523,25 +524,18 @@ img, svg {
     border: 1px solid #ccc;
 }
 
+.search-box img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
 
 /* Core styles remain the same */
 
-/* Fix base header and navigation layout */
-header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    background: black !important;
-    padding: 15px 5%;
-    color: white;
-}
 
-.logo {
-    width: 150px;
-    max-width: 100%;
-    height: auto;
-}
+
+
 
 .div-header {
     display: flex;
@@ -550,22 +544,7 @@ header {
     align-items: center;
 }
 
-/* Fix search box positioning */
-.search-box {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-left: auto;
-    margin-right: 20px;
-}
 
-.search-box input {
-    width: 180px;
-    padding: 6px 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
 
 /* Fix film grid layout */
 .gradedefilmes {
@@ -853,7 +832,7 @@ header {
     }
     
     .btn-perfil2 {
-        width: 35px;
+        width: 40px;
     }
     
     .gradedefilmes {
