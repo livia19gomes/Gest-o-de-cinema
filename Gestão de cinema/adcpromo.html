@@ -185,7 +185,7 @@
     <script>
 function carregaProdutos() {
     const settings = {
-        url: "http://192.168.1.123:5000/filmes",
+        url: "http://192.168.1.127:5000/filmes",
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -208,7 +208,7 @@ function carregarSessoes() {
     selectSessao.innerHTML = '<option selected disabled>Selecione uma sessão</option>';
 
     const settings = {
-        url: `http://192.168.1.123:5000/sessoes/${id_filme}`,
+        url: `http://192.168.1.127:5000/sessoes/${id_filme}`,
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -241,7 +241,7 @@ $("#form_cadastro").on("submit", function (e) {
     const idSessao = $("#id_sessao").val();
 
     $.ajax({
-        url: `http://192.168.1.123:5000/sessoes/promocao/${idSessao}`,
+        url: `http://192.168.1.127:5000/sessoes/promocao/${idSessao}`,
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -266,7 +266,7 @@ $("#form_cadastro").on("submit", function (e) {
             console.log(id_filme);
 
             var settings = {
-                "url": "http://192.168.1.123:5000/sessoes/" + id_filme,
+                "url": "http://192.168.1.127:5000/sessoes/" + id_filme,
                 "method": "GET",
                 "timeout": 0,
                 "headers": {
