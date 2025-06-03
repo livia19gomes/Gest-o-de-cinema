@@ -456,7 +456,7 @@
                                     const sala = params.get("sala");
                                     const total = (ids.length * precoUnitario).toFixed(2);
 
-                                    const url = `detalhessessao.html?id_reserva=${idReserva}&titulo_filme=${encodeURIComponent(titulo)}&data_sessao=${encodeURIComponent(data_sessao)}&horario=${horario}&sala=${encodeURIComponent(sala)}&assentos=${ids.join(",")}&valor_total=${total}`;
+                                    const url = `detalhessessao.html?id_reserva=${idReserva}&titulo_filme=${encodeURIComponent(titulo)}&data_sessao=${encodeURIComponent(data_sessao)}&horario=${horario}&sala=${encodeURIComponent(descricao)}&assentos=${ids.join(",")}&valor_total=${total}`;
                                     window.location.href = url;
                                 });
 
