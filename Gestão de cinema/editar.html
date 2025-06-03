@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="assets/css/editar.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="assets/js/seguranca.js" defer></script>
+    <!-- <script src="assets/js/seguranca.js" defer></script> -->
 </head>
 
 <body>
@@ -39,34 +39,25 @@
             </div>
         </div>
     </header>
+<main>
+        <h2>Editar perfil</h2>
+        <form id="form_cadastro">
+            <label for="valor" class="form-label">Nome:</label>
+            <input type="text" id="valor" name="valor" required>
 
-    <div class="container">
-        <div class="direita">
-            <h2>Editar Perfil</h2>
-            <form id="form_editar">
-                <div class="campo">
-                    <input type="text" name="nome" id="nome" placeholder="Editar nome" required>
-                </div>
-                
-                <div class="campo">
-                    <input type="text" name="tel" id="telefone" placeholder="Editar telefone" inputmode="numeric" required>
-                </div>
-                <span id="erro-telefone" class="erro"></span>
-                
-                <div class="campo">
-                    <input type="email" name="email" id="email" placeholder="Editar e-mail" required>
-                </div>
-                <span id="erro-email" class="erro"></span>
-                
-                <div class="campo">
-                    <input type="password" name="senha" id="senha" placeholder="Editar senha" required>
-                </div>
-                <span id="erro-senha" class="erro"></span>
-                
-                <button type="submit" class="botao">SALVAR</button>
-            </form>
-        </div>
-    </div>
+            <label for="valor" class="form-label">Telefone:</label>
+            <input type="text" id="valor" name="valor" required>
+
+            <label for="valor" class="form-label">E-mail:</label>
+            <input type="text" id="valor" name="valor" required>
+
+            <label for="valor" class="form-label">Senha:</label>
+            <input type="text" id="valor" name="valor" required>
+
+            <button type="submit">Salvar</button>
+
+        </form>
+    </main>
 
     <footer class="main_footer_container">
         <div class="content">
