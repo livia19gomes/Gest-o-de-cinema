@@ -268,97 +268,165 @@ nav ul li a:hover {
     color: darkred;
 }
 
-.gradedefilmes {
+  .gradedefilmes {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 20px;
     padding: 20px;
-    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-}
+  }
 
-.filme {
+  .filme-container {
     display: flex;
     flex-direction: column;
-    position: relative;
-    overflow: hidden;
-    justify-content: center;
     align-items: center;
-}
-
-.filme img {
+    gap: 10px;
     width: 100%;
-    max-width: 30vh;
-    height: 300px;
+  }
+
+  .filme {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .filme img {
+    width: 100%;
+    height: 270px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 8px;
     transition: transform 0.3s;
-}
+  }
 
-.filme:hover img {
+  .filme:hover img {
     transform: scale(1.02);
-}
+  }
 
-.sessao-lista {
+  .sessao-lista {
+    flex: 1;
+    width: 100%;
+    padding: 10px;
     background-color: #111;
-    border: 1px solid #444;
     border-radius: 10px;
-    padding: 10px 15px;
-    margin-top: 10px;
     color: #fff;
     font-family: 'Merriweather', serif;
     font-size: 14.5px;
-    max-width: 300px;
-}
+  }
 
-.sessao-lista ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+  .swal2-popup .sessao-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 20px;
+  }
 
-.sessao-lista li {
-    padding: 8px 0;
-    border-bottom: 1px solid #333;
-}
-
-.sessao-lista li:last-child {
-    border-bottom: none;
-}
-
-.sessao-lista strong {
-    color: darkred;
-    font-weight: bold;
-}
-
-.botaosess {
-    padding: 5px 10px;
-    background-color: rgb(58, 58, 58);
-    border-radius: 10px;
+  .swal2-popup .sessao-card {
+    background: #b00;
     color: white;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-}
+    padding: 12px;
+    border-radius: 10px;
+    width: 120px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+  }
 
-.botaosess:hover {
+  .swal2-popup .sessao-hora {
+    font-size: 1.1rem;
+  }
+
+  .swal2-popup .sessao-data {
+    margin-top: 4px;
+    font-size: 0.95rem;
+  }
+
+  .swal2-popup .sessao-comprar {
+    margin-top: 6px;
+    font-size: 0.9rem;
+  }
+
+  .swal2-popup .sessao-sala {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .botaosess {
+    margin-top: 10px;
+    padding: 8px 16px;
     background-color: darkred;
     color: white;
-}
-
-.comprar {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: rgba(255, 0, 0, 0.8);
-    color: white;
-    text-align: center;
-    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
     font-weight: bold;
-    display: none;
-}
+    transition: background-color 0.3s ease;
+  }
+
+  .botaosess:hover {
+    background-color: #a00000;
+  }
+
+
+  .filme img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s;
+  }
+
+  .sessao-lista {
+    flex: 1;
+    min-width: 0;
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .sessao-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-start;
+  }
+
+  .sessao-card {
+    background: #b00;
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    width: 120px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
+  }
+
+  .sessao-hora {
+    font-size: 1.1rem;
+  }
+
+  .sessao-data {
+    margin-top: 4px;
+    font-size: 0.95rem;
+  }
+
+  .sessao-comprar {
+    margin-top: 6px;
+    font-size: 0.9rem;
+  }
+
+  .sessao-sala {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+
+
+
 
 .cadastro {
     background-color: white;

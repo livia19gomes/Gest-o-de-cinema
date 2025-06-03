@@ -75,6 +75,28 @@
         </div>
     </div>
 
+        <script>
+        let indiceAtual = 0;
+        const slides = document.querySelector(".slides");
+        const indicadores = document.querySelectorAll(".indicador");
+
+        function mudarSlide(indice) {
+            indiceAtual = indice;
+            let deslocamento = -indice * 100 + "%";
+            slides.style.transform = "translateX(" + deslocamento + ")";
+            indicadores.forEach((ind, i) => {
+                ind.classList.toggle("ativo", i === indice);
+            });
+        }
+
+        setInterval(() => {
+            indiceAtual = (indiceAtual + 1) % 3;
+            mudarSlide(indiceAtual);
+        }, 3000);
+    </script>
+
+<br><br>
+
     <div class="categorias">
         <a href="#">AVENTURA</a>
         <a href="#">ROMANCE</a>
@@ -131,184 +153,141 @@
         </div>
     </footer>
 
-    <script>
+<script>
+let modoBuscaAtiva = false;
+
 function buscarFilme() {
-        const termo = $("#searchInput").val().trim();
-        if (!termo) return;
+  const termo = $("#searchInput").val().trim();
+  if (!termo) return;
+  modoBuscaAtiva = true;
 
-        $.ajax({
-            url: "http://192.168.1.127:5000/buscar-filmes",
-            method: 'GET',
-            data: { termo },
-            success: function (filmes) {
-            let html = "";
-            filmes.forEach(filme => {
-                html += `
-                <div class="filme">
-                    <a href="datasesoes.html?id=${filme.id}&titulo=${encodeURIComponent(filme.titulo)}&classificacao=${filme.classificacao}&genero=${encodeURIComponent(filme.genero)}&trailer=${encodeURIComponent(filme.link || '')}&sinopse=${encodeURIComponent(filme.sinopse)}">
-                    <img src="http://192.168.1.127:5000/static/uploads/Filmes/${filme.id}.jpeg" alt="${filme.titulo}">
-                    </a>
-                    <button class='botaosess' onclick="carregarSessoes(${filme.id})">Ver Sessões</button>
-                    <div id="sessoes-${filme.id}" class="sessao-lista" style="display:none;"></div>
-                </div>
-                `;
-            });
+  $.ajax({
+    url: "http://192.168.1.127:5000/buscar-filmes",
+    method: 'GET',
+    data: { termo },
+    success: function (filmes) {
+      let html = "";
+      filmes.forEach(filme => {
+        html += gerarCardFilme(filme);
+      });
 
-            if (filmes.length > 0) {
-                Swal.fire("Resultado encontrado!", "", "success");
-            } else {
-                html = "<p>Nenhum filme encontrado.</p>";
-                Swal.fire("Nenhum resultado encontrado.", "", "info");
-            }
-
-            $("#exibeFilmes").html(html);
-            },
-            error: function () {
-            Swal.fire("Erro", "Erro ao buscar filmes. Tente novamente.", "error");
-            }
-        });
-        }
-
-    function carregarSessoes(idFilme) {
-      const container = $(`#sessoes-${idFilme}`);
-
-      // Toggle se já carregado
-      if (container.html().trim() !== "") {
-        container.toggle();
-        return;
+      if (filmes.length > 0) {
+        Swal.fire("Resultado encontrado!", "", "success");
+      } else {
+        html = "<p>Nenhum filme encontrado.</p>";
+        Swal.fire("Nenhum resultado encontrado.", "", "info");
       }
 
-      $.ajax({
-        url: `http://192.168.1.127:5000/sessoes/${idFilme}`,
-        method: 'GET',
-        success: function (response) {
-          const sessoes = response.sessoes;
-          let html = "";
-
-          if (sessoes.length === 0) {
-            html = "<p>Sem sessões disponíveis para este filme.</p>";
-          } else {
-            html += `<ul>`;
-            sessoes.forEach(sessao => {
-              html += `
-                <li>
-                  <strong>${sessao.data_sessao}</strong> - ${sessao.horario} | Sala: ${sessao.descricao} | R$ ${sessao.valor_unitario.toFixed(2)}
-                </li>`;
-            });
-            html += `</ul>`;
-          }
-
-          container.html(html).slideDown();
-        },
-        error: function () {
-          Swal.fire("Erro", "Erro ao buscar sessões do filme.", "error");
-        }
-      });
+      $("#exibeFilmes").html(html);
+    },
+    error: function () {
+      Swal.fire("Erro", "Erro ao buscar filmes. Tente novamente.", "error");
     }
+  });
+}
 
-    $("#searchInput").on("keypress", function (e) {
-      if (e.key === "Enter") buscarFilme();
-    });
+function carregarSessoes(idFilme) {
+  $.ajax({
+    url: `http://192.168.1.127:5000/sessoes/${idFilme}`,
+    method: 'GET',
+    success: function (response) {
+      const sessoes = response.sessoes;
+      let html = "";
 
+      if (sessoes.length === 0) {
+        html = "<p>Sem sessões disponíveis para este filme.</p>";
+      } else {
+        html += `<div class=\"sessao-wrapper\">`;
+        sessoes.forEach(sessao => {
+          const dataObj = new Date(sessao.data_sessao);
+          const dia = dataObj.getDate();
+          const mes = dataObj.getMonth() + 1;
+          const ano = dataObj.getFullYear();
+          const dataFormatada = `${dia}/${mes}/${ano}`;
 
-    function carregaProdutos() {
-      $.ajax({
-        url: "http://192.168.1.127:5000/filmes",
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      }).done(function (response) {
-        const exibe = $("#exibeFilmes");
-        let html = "";
-        response.filmes.forEach(item => {
+          const horarioLimpo = sessao.horario.replace(/^0/, '').replace(/:00$/, '');
+
           html += `
-            <div class="filme">
-              <a href="#">
-                <img src="http://192.168.1.127:5000/static/uploads/Filmes/${item.id_filme}.jpeg" alt="${item.titulo}">
-              </a>
+            <div class=\"sessao-card\">
+              <div class=\"sessao-hora\">${horarioLimpo}</div>
+              <div class=\"sessao-data\">${dataFormatada}</div>
+              <div class=\"sessao-comprar\">Comprar</div>
+              <div class=\"sessao-sala\">${sessao.descricao}</div>
             </div>
           `;
         });
-        exibe.html(html);
+        html += `</div>`;
+      }
+
+      Swal.fire({
+        title: 'Sessões disponíveis',
+        html: html,
+        width: '600px',
+        showConfirmButton: false,
+        showCloseButton: true,
+        customClass: {
+          popup: 'swal2-popup'
+        }
       });
+    },
+    error: function () {
+      Swal.fire("Erro", "Erro ao buscar sessões do filme.", "error");
     }
+  });
+}
+
+$("#searchInput").on("keypress", function (e) {
+  if (e.key === "Enter") buscarFilme();
+});
+
+function gerarCardFilme(filme) {
+  const id = filme.id_filme || filme.id;
+  const mostrarBotao = modoBuscaAtiva
+    ? `<button class='botaosess' onclick=\"carregarSessoes(${id})\">Ver Sessões</button>`
+    : "";
+
+  return `
+    <div class=\"filme-container\">
+      <div class=\"filme\">
+        <a href=\"datasesoes.html?id=${id}&titulo=${encodeURIComponent(filme.titulo)}&classificacao=${filme.classificacao}&genero=${encodeURIComponent(filme.genero)}&trailer=${encodeURIComponent(filme.link || '')}&sinopse=${encodeURIComponent(filme.sinopse)}&nota=${filme.nota || ''}\">
+          <img src=\"http://192.168.1.127:5000/static/uploads/Filmes/${id}.jpeg\" alt=\"${filme.titulo}\">
+        </a>
+      </div>
+      ${mostrarBotao}
+    </div>
+  `;
+}
+
+function carregaProdutos() {
+  modoBuscaAtiva = false;
+  $.ajax({
+    url: "http://192.168.1.127:5000/filmes",
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    success: function (response) {
+      let html = "";
+      response.filmes.forEach(filme => {
+        html += gerarCardFilme(filme);
+      });
+      $("#exibeFilmes").html(html);
+    },
+    error: function () {
+      Swal.fire("Erro", "Erro ao carregar filmes.", "error");
+    }
+  });
+}
+
+$(document).ready(function () {
+  document.querySelector('.slides').addEventListener('click', () => {
+    const destino = window.innerWidth < 426 ? 900 : 700;
+    window.scrollTo({ top: destino, behavior: 'smooth' });
+  });
+
+  carregaProdutos();
+});
+</script>
 
 
-        function toggleMenu() {
-            const menu = document.getElementById("menuPerfil");
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
-        }
-
-        window.onclick = function (event) {
-            const menu = document.getElementById("menuPerfil");
-            const botaoPerfil = document.querySelector('.btn-perfil2');
-            if (menu.style.display === "block" && event.target !== menu && event.target !== botaoPerfil) {
-                menu.style.display = "none";
-            }
-        }
-
-        function sair() {
-            localStorage.clear()
-            sessionStorage.clear()
-            window.location.href = "login.html";
-        }
-
-        let indiceAtual = 0;
-        const slides = document.querySelector(".slides");
-        const indicadores = document.querySelectorAll(".indicador");
-
-        var nome = localStorage.getItem("nome")
-        document.getElementById("nome-visitante").innerHTML = nome
-
-        function mudarSlide(indice) {
-            indiceAtual = indice;
-            let deslocamento = -indice * 100 + "%";
-            slides.style.transform = "translateX(" + deslocamento + ")";
-            indicadores.forEach((ind, i) => {
-                ind.classList.toggle("ativo", i === indice);
-            });
-        }
-
-        setInterval(() => {
-            indiceAtual = (indiceAtual + 1) % 3;
-            mudarSlide(indiceAtual);
-        }, 3000);
-
-        function carregaProdutos() {
-            var settings = {
-                url: "http://192.168.1.127:5000/filmes",
-                method: "GET",
-                timeout: 0,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            };
-
-            $.ajax(settings).done(function (response) {
-                let exibe = $("#exibeFilmes");
-                exibe.html("");
-                var html = "";
-                response.filmes.forEach((item) => {
-                    html += `
-                        <div class="filme">
-                            <a href="datasesoes.html?id=${item.id_filme}&titulo=${item.titulo}&classificacao=${item.classificacao}&genero=${item.genero}&trailer=${item.link}&sinopse=${item.sinopse}&nota=${item.nota}">
-                                <img src="http://192.168.1.127:5000/static/uploads/Filmes/${item.id_filme}.jpeg" alt="${item.titulo}">
-                            </a>
-                        </div>
-                    `;
-                });
-                exibe.html(html);
-            });
-        }
-
-        carregaProdutos();
-
-        window.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.slides').addEventListener('click', () => {
-                const destino = window.innerWidth < 426 ? 900 : 700;
-                window.scrollTo({ top: destino, behavior: 'smooth' });
-            });
-        });
-    </script>
 </body>
 
 </html>
