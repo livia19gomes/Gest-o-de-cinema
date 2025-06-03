@@ -52,6 +52,9 @@
                 menu.style.display = "none";
             }
         }
+
+        var nome = localStorage.getItem("nome")
+        document.getElementById("nome-visitante").innerHTML = nome  
     </script>
 
     <body>
@@ -87,7 +90,7 @@
                             <p>Olá, <span class="nome-veisitante" id="nome-visitante">(Nome do visitante)</span></p>
                             <ul>
                                 <li><a href="meusPedidos.html">📦 Meus Pedidos</a></li>
-                                <li><a href="editar.html">✏️ Editar perfil</a></li>
+                                <li><a href="editarperfiladm.html">✏️ Editar perfil</a></li>
                                 <li><a href="login.html" onclick="sair()">🚪 Sair da Conta</a></li>
                             </ul>
                         </div>
@@ -122,6 +125,11 @@
         </div>
     </div>
 </main>
+        <script>
+            var nome = localStorage.getItem("nome")
+        document.getElementById("nome-visitante").innerHTML = nome
+        </script>
+        
         <script>
             function buscarDados() {
                 $.ajax({
@@ -207,12 +215,8 @@
                         Swal.fire({
                             title: "Deu Certo!",
                             icon: "success"
-                        }).then(() => {
-                            if (retorno.usuarios.tipo === "adm") {
-                                window.location.href = "homeeae.html";
-                            } else {
-                                window.location.href = "homePoslogin.html";
-                            }
+                        }).then(() => { 
+                             window.location.href = "homeeae.html";
                         });
                     },
                     error: function (retorno) { // caso de erro no login
@@ -250,6 +254,8 @@
                         title: "Sucesso!",
                         text: resposta.mensagem || "Dados atualizados com sucesso.",
                         confirmButtonText: "OK"
+                    }).then(() => {
+                        window.location.href = "homeeae.html";
                     });
                 },
                 error: function (erro) {
@@ -284,11 +290,7 @@
                         title: "Deu Certo!",
                         icon: "success"
                     }).then(() => {
-                        if (retorno.usuarios.tipo === "adm") {
-                            window.location.href = "homeeae.html";
-                        } else {
-                            window.location.href = "homePoslogin.html";
-                        }
+                        window.location.href = "homeeae.html";
                     });
                 },
                 error: function (retorno) { // caso de erro no login

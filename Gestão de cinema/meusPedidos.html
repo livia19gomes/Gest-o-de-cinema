@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <a href="#" onclick="voltarprahome()">
+        <a href="homePoslogin.html">
             <img class="logo" src="assets/img/PRIME CINE logo.png" alt="Logo empresarial">
         </a>
         <nav>
@@ -121,7 +121,7 @@
                         const horaFormatada = reserva.horario.slice(0, 5);
                         document.getElementById("listapedidos").innerHTML += `
                            
-                            <div onclick="window.location.href='detalhessessao.html?id=${reserva.id_reserva}&titulo_filme=${reserva.titulo_filme}&data_sessao=${reserva.data_sessao}&horario=${reserva.horario}&sala=${reserva.sala}&assentos=${reserva.assentos}&valor_total=${reserva.valor_total}'" style="cursor: pointer;">
+                            <div onclick="window.location.href='detalhessessao.html?id_reserva=${reserva.id_reserva}&titulo_filme=${reserva.titulo_filme}&data_sessao=${reserva.data_sessao}&horario=${reserva.horario}&sala=${reserva.sala}&assentos=${reserva.assentos}&valor_total=${reserva.valor_total}'" style="cursor: pointer;">
                                 <p>Nome do Filme:  ${reserva.titulo_filme}</p>
                                 <p>Horário: ${horaFormatada}</p>
                                 <p>Sala: ${reserva.sala}</p>
