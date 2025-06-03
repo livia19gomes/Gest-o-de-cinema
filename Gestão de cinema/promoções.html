@@ -19,6 +19,8 @@
     <script src="assets/js/seguranca.js" defer></script> 
 </head>
 
+
+
 <body>
     <header>
         <a href="homePoslogin.html"><img class="logo" src="assets/img/PRIME CINE logo.png" alt="Logo empresarial">
@@ -145,6 +147,34 @@
 
         var nome = localStorage.getItem("nome")
         document.getElementById("nome-visitante").innerHTML = nome
+
+
+        $(document).ready(function () {
+    $.get("http://localhost:5000/sessoes/promocoes", function (data) {
+        const container = $("#lista-promocoes");
+        container.empty();
+
+        if (data.length === 0) {
+            container.append("<p>Nenhuma promoção disponível no momento.</p>");
+            return;
+        }
+
+        data.forEach(promo => {
+            const bloco = `
+                <div class="filme">
+                    <img src="assets/img/anybyoy.webp" alt="${promo.titulo}">
+                    <div class="info">
+                        <p><strong>R$${promo.valor_promocional.toFixed(2)}</strong> valor unitário</p>
+                        <p>${promo.data_sessao}</p>
+                        <p>${promo.sala}</p>
+                        <button onclick="reservar('${promo.titulo}', ${promo.valor_promocional}, '${promo.data_sessao}', '${promo.sala}')">Reservar</button>
+                    </div>
+                </div>
+            `;
+            container.append(bloco);
+        });
+    });
+});
     </script>
 </body>
 
