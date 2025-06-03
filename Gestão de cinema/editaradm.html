@@ -129,49 +129,51 @@
         const nome = params.get('nome');
         const email = params.get('email');
         const telefone = params.get('telefone');
-        const senha = params.get('senha');
         const tipo = params.get('tipo');
-        let editar = params.get('editar');
+        const editar = params.get('editar'); // Opcional, caso você queira controlar a visibilidade (Ativo/Inativo)
 
         console.log("Parâmetros recebidos:", { id, nome, email, telefone, tipo, editar });
-        
-        if (!id) {
-            console.error("ID não fornecido na URL");
+
+        // Verificar se os parâmetros estão presentes
+        if (!id || !nome || !email || !telefone || !tipo) {
+            console.error("Parâmetros necessários não fornecidos na URL");
             Swal.fire({
                 icon: "error",
                 title: "Erro",
-                text: "ID do usuário não fornecido!"
+                text: "Parâmetros necessários não fornecidos!"
             }).then(() => {
-                window.location.href = "listagem.html";
+                window.location.href = "listagem.html"; // Redireciona de volta para a listagem
             });
             return;
         }
 
-        if (editar === "ativo") {
-            editar = true;
-        } else {
-            editar = false;
-        }
-
+        // Preencher os campos com os dados passados na URL
         $("#nome").val(nome);
         $("#email").val(email);
         $("#telefone").val(telefone);
-        $("#senha").val(senha);
-        $("#tipo").val(tipo);
-        $("#editar").val(editar);
+        $("#tipo").val(tipo); // Certifique-se de que o valor do tipo está correto
+
+        // Verificando a visibilidade do campo "editar" com base no parâmetro
+        if (editar === "true") {
+            $("#editar").val("true"); // "Ativo"
+        } else if (editar === "false") {
+            $("#editar").val("false"); // "Inativo"
+        }
+
+        // Verificar o preenchimento dos campos no console
+        console.log("Dados preenchidos:", {
+            nome: $("#nome").val(),
+            email: $("#email").val(),
+            telefone: $("#telefone").val(),
+            tipo: $("#tipo").val(),
+            editar: $("#editar").val()
+        });
+
+        // Log para a senha, que não é passada pela URL
+        $("#senha").val(""); // Aqui, a senha está vazia porque não está sendo passada na URL
+    });
 
 
-         <tr>
-                        <td>${item.nome}</td>
-                        <td>${item.email}</td>
-                        <td>${item.telefone}</td>
-                        <td>${item.tipo}</td>
-                        <td>
-                            <a href="editaradm.html?id=${item.id_usuario}&nome=${item.nome}&email=${item.email}&telefone=${item.telefone}&tipo=${item.tipo}">
-                                <button class="botao">EDITAR</button>
-                            </a>
-                        </td>
-                    </tr>
 
         $("#togglePassword").click(function() {
             const senhaInput = $("#senha");
@@ -194,7 +196,7 @@
             const telefone = $("#telefone").val();
             const senha = $("#senha").val();
             const tipo = $("#tipo").val();
-            const ativo = $("#editar").val() === "true"; // CORREÇÃO AQUI
+            const ativo = $("#editar").val() === "true"; 
             
             if (!nome || !email || !telefone || !senha || !tipo || ativo === "") {
                 Swal.fire({
@@ -242,7 +244,6 @@
                 }
             });
         });
-    });
 </script>
 
 
