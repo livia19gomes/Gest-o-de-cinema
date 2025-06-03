@@ -8,49 +8,52 @@
     <link rel="stylesheet" href="assets/css/editaradm.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- <script src="assets/js/seguranca.js" defer></script> -->
-    <!-- Adicionando Font Awesome para o ícone do olho -->
+     <!-- <script src="assets/js/seguranca.js" defer></script>  -->
+    
+     <!-- Adicionando Font Awesome para o ícone do olho -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
 </head>
 
-<body>
-    <div class="container">
-        <div class="esquerda">
-            <a href="homeeae.html"><img class="logo-img" src="assets/img/PRIME CINE logo.png" alt="Logo empresarial">
-            </a>
-        </div>
-        <div class="direita">
-            <h1>EDITAR</h1>
-            <input type="text" name="nome" id="nome" placeholder="Edite o nome">
-            <input type="email" name="email" id="email" placeholder="Edite o email">
-            <input type="tel" name="telefone" id="telefone" placeholder="Edite o telefone">
-            
-            <!-- Campo de senha com o ícone de olho -->
-            <div class="password-container">
-                <input type="password" name="senha" id="senha" placeholder="Edite a senha">
-                <span class="toggle-password">
-                    <i class="fas fa-eye" id="togglePassword"></i>
-                </span>
-            </div>
 
-            <label for="tipo">PERFIL:</label>
-            <select id="tipo">
+<body>
+    <main>
+        <h2>Editar usuário</h2>
+        <form id="form_cadastro">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="email" class="form-label">E-mail:</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="telefone" class="form-label">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" required>
+
+            <label for="senha" class="form-label">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+            <i id="togglePassword" class="fas fa-eye" style="cursor: pointer; margin-left: 10px;"></i>
+
+
+            <label for="tipo">Selecione uma opção:</label>
+            <select name="tipo" id="tipo" required>
                 <option value="" selected disabled>Selecione uma opção</option>
                 <option value="usuario">Usuário</option>
                 <option value="adm">Administrador</option>
             </select>
 
-
-            <label for="editar">FUNCIONALIDADE:</label>
-            <select id="editar" name="editar" required>
+            <label for="editar">Funcionalidade:</label>
+            <select name="editar" id="editar" required>
                 <option value="" selected disabled>Selecione uma opção</option>
-                <option value=true>Ativo</option>
-                <option value=false>Inativo</option>
+                <option value="true">Ativo</option>
+                <option value="false">Inativo</option>
             </select>
 
-            <button class="botao">Salvar</button>
-        </div>
+
+        <button type="button" id="btnSalvar">Salvar</button>
+
+
+        </form>
+    </main>
     </div>
     <div class="barra"></div>
 
@@ -156,6 +159,19 @@
         $("#senha").val(senha);
         $("#tipo").val(tipo);
         $("#editar").val(editar);
+
+
+         <tr>
+                        <td>${item.nome}</td>
+                        <td>${item.email}</td>
+                        <td>${item.telefone}</td>
+                        <td>${item.tipo}</td>
+                        <td>
+                            <a href="editaradm.html?id=${item.id_usuario}&nome=${item.nome}&email=${item.email}&telefone=${item.telefone}&tipo=${item.tipo}">
+                                <button class="botao">EDITAR</button>
+                            </a>
+                        </td>
+                    </tr>
 
         $("#togglePassword").click(function() {
             const senhaInput = $("#senha");
