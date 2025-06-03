@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -5,90 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar perfil - Prime Cine</title>
-
     <link rel="stylesheet" href="assets/css/editar.css">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="assets/js/seguranca.js" defer></script>
-
-    <script>
-        function validarFormulario(event) {
-            event.preventDefault();
-
-            const telefone = document.getElementById('telefone');
-            const email = document.getElementById('email');
-            const senha = document.getElementById('senha');
-            const erroTelefone = document.getElementById('erro-telefone');
-            const erroEmail = document.getElementById('erro-email');
-            const erroSenha = document.getElementById('erro-senha');
-            let valido = true;
-
-            const telefoneValido = /^[0-9]+$/;
-            const emailValido = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-            const senhaValida = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}":;'?/>,.<]).{8,}$/;
-
-            erroTelefone.textContent = "";
-            erroEmail.textContent = "";
-            erroSenha.textContent = "";
-
-            if (!telefoneValido.test(telefone.value)) {
-                erroTelefone.textContent = 'O telefone deve conter apenas números!';
-                valido = false;
-            }
-
-            if (!emailValido.test(email.value)) {
-                erroEmail.textContent = 'Digite um e-mail válido do Gmail!';
-                valido = false;
-            }
-
-            if (!senhaValida.test(senha.value)) {
-                erroSenha.textContent = 'A senha deve ter 8 caracteres, 1 letra maiúscula e 1 símbolo!';
-                valido = false;
-            }
-
-            if (valido) {
-                document.getElementById('form-editar').submit();
-            }
-        }
-
-        function toggleMenu() {
-            const menu = document.getElementById('menuPerfil');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-        }
-
-        function buscarFilme() {
-            const searchInput = document.getElementById('searchInput');
-            // Implementar lógica de busca aqui
-            console.log('Buscando:', searchInput.value);
-        }
-
-        function sair() {
-            localStorage.clear();
-        }
-    </script>
 </head>
 
 <body>
-
     <header>
-        <a href="homePoslogin.html">
+        <a href="homePoslogin.html" id="logo-link">
             <img class="logo" src="assets/img/PRIME CINE logo.png" alt="Logo empresarial">
         </a>
     
-        <div class="search-box">
-            <div style="display: flex; flex-direction: row; gap: 15px; align-items: center;">
-               
-            </div>
-            <nav>
-                <ul>
-                    <li><a href="homePoslogin.html">HOME</a></li>
-                    <li><a href="promoções.html">PROMOÇÕES</a></li>
-                </ul>
-            </nav>
-        </div>
+        <nav>
+            <ul>
+                <li><a href="homePoslogin.html">HOME</a></li>
+                <li><a href="promoções.html">PROMOÇÕES</a></li>
+            </ul>
+        </nav>
     
         <div class="acao">
             <div class="perfil-container">
@@ -105,181 +40,122 @@
         </div>
     </header>
 
-    <div class="barra"></div>
-
     <div class="container">
-        
         <div class="direita">
             <h2>Editar Perfil</h2>
-            <form id="form_editar" onsubmit="validarFormulario(event)">
+            <form id="form_editar">
                 <div class="campo">
-                    <input type="text" name="nome" id="nome" placeholder="Editar nome">
+                    <input type="text" name="nome" id="nome" placeholder="Editar nome" required>
                 </div>
+                
                 <div class="campo">
-                    <input type="text" name="tel" id="telefone" placeholder="Editar telefone" inputmode="numeric">
+                    <input type="text" name="tel" id="telefone" placeholder="Editar telefone" inputmode="numeric" required>
                 </div>
                 <span id="erro-telefone" class="erro"></span>
+                
                 <div class="campo">
-                    <input type="email" name="email" id="email" placeholder="Editar e-mail">
+                    <input type="email" name="email" id="email" placeholder="Editar e-mail" required>
                 </div>
                 <span id="erro-email" class="erro"></span>
+                
                 <div class="campo">
-                    <input type="password" name="senha" id="senha" placeholder="Editar senha">
+                    <input type="password" name="senha" id="senha" placeholder="Editar senha" required>
                 </div>
                 <span id="erro-senha" class="erro"></span>
+                
                 <button type="submit" class="botao">SALVAR</button>
             </form>
         </div>
     </div>
 
-       <footer class="main_footer_container">
+    <footer class="main_footer_container">
         <div class="content">
             <div class="colfooter">
-                <h3 class="titleFooter"> Menu</h3>
+                <h3 class="titleFooter">Menu</h3>
                 <ul>
-                    <li><a href="#" title="Página Inícial">Página Inícial</a></li>
+                    <li><a href="homePoslogin.html" title="Página Inicial">Página Inicial</a></li>
                     <li><a href="promoções.html" title="Promoções">Promoções</a></li>
-                    <li><a href="relatorios.html" title="Relatório">Relatório</a></li>
                     <li><a href="cadastro.html" title="Cadastro">Cadastro</a></li>
                 </ul>
             </div>
             <div class="colfooter">
-                <h3 class="titleFooter"> Contato</h3>
-                <p><i class="icon icon-mail"></i>primecine@gmail.com</p>
-                <p><i class="icon icon-phone"></i> (00) 00000-0000</p>
-                <p><i class="icon icon-whatsapp"></i> (11) 11111-1111</p>
+                <h3 class="titleFooter">Contato</h3>
+                <p>primecine@gmail.com</p>
+                <p>(00) 00000-0000</p>
+                <p>(11) 11111-1111</p>
             </div>
             <div class="colfooter">
-                <h3 class="titleFooter"> Redes Sociais</h3>
+                <h3 class="titleFooter">Redes Sociais</h3>
                 <div>
                     <a class="rss" href="https://www.instagram.com/">
                         <img src="assets/img/instagram.png" alt="Instagram">
                     </a>
-                    <a class="rss" href="https://www.whatsapp.com/?lang=pt_BR">
+                    <a class="rss" href="https://www.whatsapp.com/">
                         <img src="assets/img/whatsapp (1).png" alt="WhatsApp">
                     </a>
-                    <a class="rss" href="https://x.com/?lang=pt">
+                    <a class="rss" href="https://x.com/">
                         <img src="assets/img/twitter.png" alt="Twitter">
                     </a>
-                    <a class="rss" href="https://www.facebook.com/?locale=pt_BR">
+                    <a class="rss" href="https://www.facebook.com/">
                         <img src="assets/img/facebook.png" alt="Facebook">
                     </a>
                 </div>
             </div>
-            <div class="clear"></div>
         </div>
         <div class="main_footer_copy">
-            <p class="m-b-footer"> PrimeCine - 2025 © todos os direitos reservados</p> 
+            <p class="m-b-footer">PrimeCine - 2025 © todos os direitos reservados</p> 
         </div>
     </footer>
 
-      <script>
-function buscarFilme() {
-        const termo = $("#searchInput").val().trim();
-        if (!termo) return;
+    <script>
+        // Função para validar formulário
+        function validarFormulario() {
+            const telefone = document.getElementById('telefone').value;
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            
+            const erroTelefone = document.getElementById('erro-telefone');
+            const erroEmail = document.getElementById('erro-email');
+            const erroSenha = document.getElementById('erro-senha');
+            
+            let valido = true;
 
-        $.ajax({
-            url: "http://192.168.1.123:5000/buscar-filmes",
-            method: 'GET',
-            data: { termo },
-            success: function (filmes) {
-            let html = "";
-            filmes.forEach(filme => {
-                html += `
-                <div class="filme">
-                    <a href="datasesoes.html?id=${filme.id}&titulo=${encodeURIComponent(filme.titulo)}&classificacao=${filme.classificacao}&genero=${encodeURIComponent(filme.genero)}&trailer=${encodeURIComponent(filme.link || '')}&sinopse=${encodeURIComponent(filme.sinopse)}">
-                    <img src="http://192.168.1.123:5000/static/uploads/Filmes/${filme.id}.jpeg" alt="${filme.titulo}">
-                    </a>
-                    <button class='botaosess' onclick="carregarSessoes(${filme.id})">Ver Sessões</button>
-                    <div id="sessoes-${filme.id}" class="sessao-lista" style="display:none;"></div>
-                </div>
-                `;
-            });
+            // Limpar mensagens de erro
+            erroTelefone.textContent = "";
+            erroEmail.textContent = "";
+            erroSenha.textContent = "";
 
-            if (filmes.length > 0) {
-                Swal.fire("Resultado encontrado!", "", "success");
-            } else {
-                html = "<p>Nenhum filme encontrado.</p>";
-                Swal.fire("Nenhum resultado encontrado.", "", "info");
+            // Validar telefone (apenas números)
+            const telefoneValido = /^[0-9]+$/;
+            if (!telefoneValido.test(telefone)) {
+                erroTelefone.textContent = 'O telefone deve conter apenas números!';
+                valido = false;
             }
 
-            $("#exibeFilmes").html(html);
-            },
-            error: function () {
-            Swal.fire("Erro", "Erro ao buscar filmes. Tente novamente.", "error");
+            // Validar email (Gmail)
+            const emailValido = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+            if (!emailValido.test(email)) {
+                erroEmail.textContent = 'Digite um e-mail válido do Gmail!';
+                valido = false;
             }
-        });
+
+            // Validar senha (8 caracteres, 1 maiúscula, 1 símbolo)
+            const senhaValida = /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}":;'?/>,.<]).{8,}$/;
+            if (!senhaValida.test(senha)) {
+                erroSenha.textContent = 'A senha deve ter 8 caracteres, 1 letra maiúscula e 1 símbolo!';
+                valido = false;
+            }
+
+            return valido;
         }
 
-    function carregarSessoes(idFilme) {
-      const container = $(`#sessoes-${idFilme}`);
-
-      // Toggle se já carregado
-      if (container.html().trim() !== "") {
-        container.toggle();
-        return;
-      }
-
-      $.ajax({
-        url: `http://192.168.1.123:5000/sessoes/${idFilme}`,
-        method: 'GET',
-        success: function (response) {
-          const sessoes = response.sessoes;
-          let html = "";
-
-          if (sessoes.length === 0) {
-            html = "<p>Sem sessões disponíveis para este filme.</p>";
-          } else {
-            html += `<ul>`;
-            sessoes.forEach(sessao => {
-              html += `
-                <li>
-                  <strong>${sessao.data_sessao}</strong> - ${sessao.horario} | Sala: ${sessao.descricao} | R$ ${sessao.valor_unitario.toFixed(2)}
-                </li>`;
-            });
-            html += `</ul>`;
-          }
-
-          container.html(html).slideDown();
-        },
-        error: function () {
-          Swal.fire("Erro", "Erro ao buscar sessões do filme.", "error");
-        }
-      });
-    }
-
-    $("#searchInput").on("keypress", function (e) {
-      if (e.key === "Enter") buscarFilme();
-    });
-
-
-    function carregaProdutos() {
-      $.ajax({
-        url: "http://192.168.1.123:5000/filmes",
-        method: "GET",
-        headers: { "Content-Type": "application/json" }
-      }).done(function (response) {
-        const exibe = $("#exibeFilmes");
-        let html = "";
-        response.filmes.forEach(item => {
-          html += `
-            <div class="filme">
-              <a href="#">
-                <img src="http://192.168.1.123:5000/static/uploads/Filmes/${item.id_filme}.jpeg" alt="${item.titulo}">
-              </a>
-            </div>
-          `;
-        });
-        exibe.html(html);
-      });
-    }
-
-
+        // Menu do perfil
         function toggleMenu() {
             const menu = document.getElementById("menuPerfil");
             menu.style.display = (menu.style.display === "block") ? "none" : "block";
         }
 
+        // Fechar menu ao clicar fora
         window.onclick = function (event) {
             const menu = document.getElementById("menuPerfil");
             const botaoPerfil = document.querySelector('.btn-perfil2');
@@ -288,79 +164,35 @@ function buscarFilme() {
             }
         }
 
+        // Função para sair
         function sair() {
-            localStorage.clear()
-            sessionStorage.clear()
-            window.location.href = "login.html";
+            localStorage.clear();
+            sessionStorage.clear();
         }
 
-        let indiceAtual = 0;
-        const slides = document.querySelector(".slides");
-        const indicadores = document.querySelectorAll(".indicador");
-
-        var nome = localStorage.getItem("nome")
-        document.getElementById("nome-visitante").innerHTML = nome
-
-        function mudarSlide(indice) {
-            indiceAtual = indice;
-            let deslocamento = -indice * 100 + "%";
-            slides.style.transform = "translateX(" + deslocamento + ")";
-            indicadores.forEach((ind, i) => {
-                ind.classList.toggle("ativo", i === indice);
-            });
-        }
-
-        setInterval(() => {
-            indiceAtual = (indiceAtual + 1) % 3;
-            mudarSlide(indiceAtual);
-        }, 3000);
-
-        function carregaProdutos() {
-            var settings = {
-                url: "http://192.168.1.123:5000/filmes",
-                method: "GET",
-                timeout: 0,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            };
-
-            $.ajax(settings).done(function (response) {
-                let exibe = $("#exibeFilmes");
-                exibe.html("");
-                var html = "";
-                response.filmes.forEach((item) => {
-                    html += `
-                        <div class="filme">
-                            <a href="datasesoes.html?id=${item.id_filme}&titulo=${item.titulo}&classificacao=${item.classificacao}&genero=${item.genero}&trailer=${item.link}&sinopse=${item.sinopse}&nota=${item.nota}">
-                                <img src="http://192.168.1.123:5000/static/uploads/Filmes/${item.id_filme}.jpeg" alt="${item.titulo}">
-                            </a>
-                        </div>
-                    `;
-                });
-                exibe.html(html);
-            });
-        }
-
-        carregaProdutos();
-
-        window.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.slides').addEventListener('click', () => {
-                const destino = window.innerWidth < 426 ? 900 : 700;
-                window.scrollTo({ top: destino, behavior: 'smooth' });
-            });
-        });
-    </script>
-
-    <script>
         // Envio do formulário com AJAX
         $("#form_editar").on("submit", function (e) {
             e.preventDefault();
 
-            let dados = new FormData(this);
-            var id = localStorage.getItem("id_cadastro");
+            // Validar antes de enviar
+            if (!validarFormulario()) {
+                return;
+            }
 
-            let envia = {
+            const dados = new FormData(this);
+            const id = localStorage.getItem("id_cadastro");
+
+            if (!id) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Erro!",
+                    text: "ID do usuário não encontrado. Faça login novamente.",
+                    confirmButtonText: "OK"
+                });
+                return;
+            }
+
+            const dadosEnvio = {
                 nome: dados.get("nome"),
                 email: dados.get("email"),
                 telefone: dados.get("tel"),
@@ -368,48 +200,69 @@ function buscarFilme() {
                 tipo: localStorage.getItem("tipo") || "cliente"
             };
 
-            envia = JSON.stringify(envia);
-
             $.ajax({
                 method: "PUT",
                 url: "http://192.168.1.123:5000/cadastros/" + id,
-                data: envia,
+                data: JSON.stringify(dadosEnvio),
                 contentType: "application/json",
-
                 success: function (retorno) {
                     Swal.fire({
                         icon: "success",
-                        title: "Edição Realizada!",
-                        text: retorno.message,
+                        title: "Perfil Atualizado!",
+                        text: retorno.message || "Suas informações foram atualizadas com sucesso.",
                         confirmButtonText: "OK"
                     }).then(() => {
+                        // Atualizar localStorage com novos dados
                         localStorage.setItem("nome", dados.get("nome"));
                         localStorage.setItem("email", dados.get("email"));
-                        localStorage.setItem("tel", dados.get("tel"));
-                        window.location.href = "homePoslogin.html";
+                        localStorage.setItem("telefone", dados.get("tel"));
+                        
+                        // Redirecionar
+                        const tipo = localStorage.getItem("tipo");
+                        if (tipo === "adm") {
+                            window.location.href = "homeeae.html";
+                        } else {
+                            window.location.href = "homePoslogin.html";
+                        }
                     });
                 },
-                error: function (retorno) {
+                error: function (xhr) {
+                    let mensagemErro = "Erro ao atualizar perfil.";
+                    
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        mensagemErro = xhr.responseJSON.error;
+                    } else if (xhr.status === 400) {
+                        mensagemErro = "Dados inválidos. Verifique as informações.";
+                    } else if (xhr.status === 409) {
+                        mensagemErro = "Este e-mail já está sendo usado por outro usuário.";
+                    }
+
                     Swal.fire({
                         icon: "error",
                         title: "Erro!",
-                        text: retorno.responseJSON.error || "Esse e-mail já existe.",
+                        text: mensagemErro,
                         confirmButtonText: "OK"
                     });
                 }
             });
         });
 
-        // Preenche os campos com dados do localStorage e define o link da logo
+        // Carregar dados quando a página carregar
         document.addEventListener("DOMContentLoaded", function () {
+            // Preencher campos com dados salvos
             document.getElementById("nome").value = localStorage.getItem("nome") || "";
             document.getElementById("email").value = localStorage.getItem("email") || "";
             document.getElementById("telefone").value = localStorage.getItem("telefone") || "";
 
-            // Redirecionamento dinâmico da logo
+            // Mostrar nome no menu
+            const nome = localStorage.getItem("nome");
+            if (nome) {
+                document.getElementById("nome-visitante").textContent = nome;
+            }
+
+            // Configurar link da logo baseado no tipo de usuário
             const tipo = localStorage.getItem("tipo");
             const logoLink = document.getElementById("logo-link");
-
             if (tipo === "adm") {
                 logoLink.href = "homeeae.html";
             } else {
