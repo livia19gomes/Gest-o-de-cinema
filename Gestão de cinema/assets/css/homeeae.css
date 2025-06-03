@@ -679,6 +679,7 @@ img, svg {
         margin-bottom: 0;
         width: 120px;
         order: 1;
+        margin-left: 48vh;
     }
     
     .div-header {
@@ -698,6 +699,7 @@ img, svg {
         margin: 15px auto;
         order: 4;
         justify-content: center;
+        padding-left: 25vh;
     }
     
     .search-box input {
