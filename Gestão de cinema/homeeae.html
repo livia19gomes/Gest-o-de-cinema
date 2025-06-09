@@ -257,7 +257,7 @@ function carregarSessoes(idFilme) {
 
           const horarioLimpo = sessao.horario.replace(/^0/, '').replace(/:00$/, '');
 
-          const url = `cadeirasDisponiveis.html?id=${idFilme}` +
+          const url = `cadeirasadm.html?id=${idFilme}` +
                       `&id_sessao=${sessao.id_sessao}` +
                       `&titulo=${encodeURIComponent(sessao.titulo)}` +
                       `&datasessao=${encodeURIComponent(sessao.data_sessao)}` +
