@@ -103,9 +103,19 @@ body {
   }
 }
 
- @media (max-width: 320px) {
+
+ @media (min-width: 320px) {
     .modal-box {
         width: 806px;
         font-size: 40px;
     }
+
+    .qrcode {
+    height: 393px;
+    width: 386px;
+}
+
+.close-btn {
+    font-size: 35px;
+}
 }

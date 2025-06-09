@@ -181,6 +181,10 @@
             return input.value.replace(/\D/g, '') / 100;
             // Exemplo: "R$ 12,50" → 12.5
         }
+
+        var nome = localStorage.getItem("nome")
+        document.getElementById("nome-visitante").innerHTML = nome
+
     </script>
 
 
