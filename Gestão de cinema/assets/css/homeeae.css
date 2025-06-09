@@ -371,6 +371,7 @@ a {
     margin: 10px auto 0;
     width: 62px;
     border-radius: 10px;
+    border: none;
 }
 
 a:hover {
