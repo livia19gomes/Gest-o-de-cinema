@@ -19,6 +19,17 @@
     <script src="assets/js/seguranca.js" defer></script> 
 </head>
 
+ <style>
+        .promo-card {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            margin-left: 10vh;
+            margin-right: 10vh;
+        }
+    </style>
+
 
 
 <body>
@@ -49,24 +60,59 @@
 
     <div class="barra"></div>
 
+    
     <main>
-        <section class="promocoes">
-            <div class="filme">
-                <img src="assets/img/anybyoy.webp" alt="Todos Menos Você">
-                <div class="info">
-                    <p><strong>R$10,00</strong> valor unitário</p>
-                    <p>Dia 05 de Março de 2025. 15:45</p>
-                    <p>Sala 02</p>
-                    <button onclick="reservar('Todos Menos Você', 15.00, '05 de Março de 2025. 15:45', 'Sala 02')">Reservar</button>
-                </div>
-            </div>
-        </section>
+        
+
+        <div id="lista-promocoes"></div>
     </main>
+
     <script>
-        function reservar(titulo, valorUnitario, dataSessao, sala) {
-            window.location.href = `cadeirasDisponiveis.html?titulo=${encodeURIComponent(titulo)}&valor_unitario=${valorUnitario}&data_sessao=${encodeURIComponent(dataSessao)}&sala=${encodeURIComponent(sala)}`;
-        }
-    </script>
+        const listaPromocoes = document.getElementById("lista-promocoes");
+        const token = localStorage.getItem("token");
+
+        fetch("http://10.92.3.162:5000/promocao", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log("Resposta da API:", data);
+
+            if (!data.sessoes_promocionais || !Array.isArray(data.sessoes_promocionais) || data.sessoes_promocionais.length === 0) {
+                listaPromocoes.innerHTML = '<p>Nenhuma promoção ativa no momento.</p>';
+                return;
+            }
+
+            listaPromocoes.innerHTML = "";
+
+            data.sessoes_promocionais.forEach(promo => {
+                const dataFormatada = new Date(promo.data).toLocaleDateString('pt-BR');
+                const horaFormatada = promo.horario.slice(0, 5);
+                const valorFormatado = promo.valor_promocional.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+                const promoHTML = `
+                    <div class="promo-card">
+                        <h3>${promo.filme}</h3>
+                        <p><strong>Data:</strong> ${dataFormatada}</p>
+                        <p><strong>Horário:</strong> ${horaFormatada}</p>
+                        <p><strong>Valor promocional:</strong> ${valorFormatado}</p>
+                        <button class="adicionar">Adicionar</button>
+                    </div>
+                `;
+
+                listaPromocoes.insertAdjacentHTML('beforeend', promoHTML);
+            });
+        })
+        .catch(err => {
+            console.error("Erro ao buscar promoções:", err);
+            listaPromocoes.innerHTML = '<p>Erro ao carregar promoções.</p>';
+        });
+    </script>  
+
+    <div class="barra3"></div>
 
     <div class="barra"></div>
 
@@ -124,58 +170,4 @@
     </footer>
 
 
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById("menuPerfil");
-            menu.style.display = (menu.style.display === "block") ? "none" : "block";
-        }
-
-        window.onclick = function (event) {
-            const menu = document.getElementById("menuPerfil");
-            const botaoPerfil = document.querySelector('.btn-perfil2');
-
-            if (menu.style.display === "block" && event.target !== menu && event.target !== botaoPerfil) {
-                menu.style.display = "none";
-            }
-        }
-
-        function sair() {
-            localStorage.clear()
-            sessionStorage.clear()
-            window.location.href = "login.html";
-        }
-
-        var nome = localStorage.getItem("nome")
-        document.getElementById("nome-visitante").innerHTML = nome
-
-
-        $(document).ready(function () {
-    $.get("http://localhost:5000/sessoes/promocoes", function (data) {
-        const container = $("#lista-promocoes");
-        container.empty();
-
-        if (data.length === 0) {
-            container.append("<p>Nenhuma promoção disponível no momento.</p>");
-            return;
-        }
-
-        data.forEach(promo => {
-            const bloco = `
-                <div class="filme">
-                    <img src="assets/img/anybyoy.webp" alt="${promo.titulo}">
-                    <div class="info">
-                        <p><strong>R$${promo.valor_promocional.toFixed(2)}</strong> valor unitário</p>
-                        <p>${promo.data_sessao}</p>
-                        <p>${promo.sala}</p>
-                        <button onclick="reservar('${promo.titulo}', ${promo.valor_promocional}, '${promo.data_sessao}', '${promo.sala}')">Reservar</button>
-                    </div>
-                </div>
-            `;
-            container.append(bloco);
-        });
-    });
-});
-    </script>
-</body>
-
-</html>
+   
