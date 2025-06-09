@@ -218,7 +218,28 @@
     </footer>
 
     <script>
-        document.getElementById("valorArrecadoTotal").innerHTML = '';
+               function toggleMenu() {
+            const menu = document.getElementById("menuPerfil");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+        window.onclick = function (event) {
+            const menu = document.getElementById("menuPerfil");
+            const botaoPerfil = document.querySelector('.btn-perfil2');
+
+            if (menu.style.display === "block" && event.target !== menu && event.target !== botaoPerfil) {
+                menu.style.display = "none";
+            }
+        }
+
+        function sair() {
+            localStorage.clear()
+            sessionStorage.clear()
+            window.location.href = "login.html";
+        }
+
+        var nome = localStorage.getItem("nome")
+        document.getElementById("nome-visitante").innerHTML = nome
 
 
     </script>
