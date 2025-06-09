@@ -15,8 +15,10 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-     <!-- <script src="assets/js/seguranca-adm.js" defer></script>   -->
+
+      <script src="assets/js/seguranca-adm.js" defer></script>
 
 
     <script>
@@ -86,7 +88,7 @@
                     <div class="menu-perfil" id="menuPerfil">
                         <p>Olá, <span class="nome-veisitante" id="nome-visitante">(Nome do visitante)</span></p>
                         <ul>
-                            <li><a href="meusPedidos.html">📦 Meus Pedidos</a></li>
+                            <li><a href="meuspedadm.html">📦 Meus Pedidos</a></li>
                             <li><a href="editarperfiladm.html">✏️ Editar perfil</a></li>
                             <li><a href="login.html" onclick="sair()">🚪 Sair da Conta</a></li>
                         </ul>
@@ -208,10 +210,23 @@
             Swal.fire("Erro", "Erro ao carregar filmes.", "error");
         });
 
+
         // Quando selecionar um filme, carrega as sessões daquele filme
         selectFilme.addEventListener("change", function () {
             const idFilme = selectFilme.value;
             selectSessao.innerHTML = '<option value="" disabled selected>Selecione uma sessão</option>';
+
+        // Se quiser pegar o valor limpo depois (por exemplo, no envio do form):
+        function getValorLimpo() {
+            return input.value.replace(/\D/g, '') / 100;
+            // Exemplo: "R$ 12,50" → 12.5
+        }
+
+        var nome = localStorage.getItem("nome")
+        document.getElementById("nome-visitante").innerHTML = nome
+
+    </script>
+
 
             fetch(`http://10.92.3.162:5000/sessoes/${idFilme}`, {
                 method: "GET",

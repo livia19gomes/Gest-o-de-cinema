@@ -42,7 +42,7 @@
         <div class="acao">
             <div class="perfil-container">
                 <img onclick="toggleMenu()" class="btn-perfil2" src="assets/img/do-utilizador.png" alt="">
-                <div class="menu-perfil" id="menuPerfil">
+                 <div class="menu-perfil" id="menuPerfil">
                     <p>Olá, <span class="nome-veisitante" id="nome-visitante">(Nome do visitante)</span></p>
                     <ul>
                         <li><a href="meusPedidos.html">📦 Meus Pedidos</a></li>
@@ -76,6 +76,30 @@
     </div>
 
         <script>
+                 function toggleMenu() {
+            const menu = document.getElementById("menuPerfil");
+            menu.style.display = (menu.style.display === "block") ? "none" : "block";
+        }
+
+        window.onclick = function (event) {
+            const menu = document.getElementById("menuPerfil");
+            const botaoPerfil = document.querySelector('.btn-perfil2');
+
+            if (menu.style.display === "block" && event.target !== menu && event.target !== botaoPerfil) {
+                menu.style.display = "none";
+            }
+        }
+
+        function sair() {
+            localStorage.clear()
+            sessionStorage.clear()
+            window.location.href = "login.html";
+        }
+
+        var nome = localStorage.getItem("nome")
+        document.getElementById("nome-visitante").innerHTML = nome
+
+
         let indiceAtual = 0;
         const slides = document.querySelector(".slides");
         const indicadores = document.querySelectorAll(".indicador");

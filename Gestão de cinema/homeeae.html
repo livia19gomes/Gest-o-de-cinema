@@ -82,7 +82,7 @@
                     <div class="menu-perfil" id="menuPerfil">
                         <p>Olá, <span class="nome-veisitante" id="nome-visitante">(Nome do visitante)</span></p>
                         <ul>
-                            <li><a href="meusPedidos.html">📦 Meus Pedidos</a></li>
+                            <li><a href="meuspedadm.html">📦 Meus Pedidos</a></li>
                             <li><a href="editarperfiladm.html">✏️ Editar perfil</a></li>
                             <li><a href="login.html" onclick="sair()">🚪 Sair da Conta</a></li>
                         </ul>
@@ -257,7 +257,7 @@ function carregarSessoes(idFilme) {
 
           const horarioLimpo = sessao.horario.replace(/^0/, '').replace(/:00$/, '');
 
-          const url = `cadeirasDisponiveis.html?id=${idFilme}` +
+          const url = `cadeirasadm.html?id=${idFilme}` +
                       `&id_sessao=${sessao.id_sessao}` +
                       `&titulo=${encodeURIComponent(sessao.titulo)}` +
                       `&datasessao=${encodeURIComponent(sessao.data_sessao)}` +
