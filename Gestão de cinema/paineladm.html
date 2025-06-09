@@ -348,7 +348,7 @@ function atualizarDashboard(dados) {
             valorArrecadadoElem.textContent = formatarMoedaBR(dados.total_arrecadado || 0);
 
             const ingressosVendidosElem = document.getElementById('ingressos-vendidos');
-            ingressosVendidosElem.textContent = formatarMoedaBR(dados.ingressos_vendidos || 0);
+            ingressosVendidosElem.textContent = dados.ingressos_vendidos || 0;
 
             const rankingFilmesElem = document.getElementById('ranking-filmes');
             dados.filmes_mais_bilheteira.forEach(function(item) {
@@ -356,9 +356,7 @@ function atualizarDashboard(dados) {
                     <p>${item.titulo}</p>
                     <p>${item.bilheteira_total} </p>
                 `
-            })
-
-            
+            }) 
 
             const modalElement = document.getElementById('modalFiltrarData');
             const modal = bootstrap.Modal.getInstance(modalElement);
