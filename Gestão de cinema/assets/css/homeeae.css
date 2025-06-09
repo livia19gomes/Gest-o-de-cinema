@@ -26,7 +26,6 @@ header {
     padding: 5px 30px;
     color: white;
     position: relative;
-
 }
 
 .div-header {
@@ -72,8 +71,6 @@ header {
 .btn-perfil:hover {
     background-color: #cc0000;
 }
-
-
 
 /* Menu suspenso */
 .menu-perfil {
@@ -162,8 +159,6 @@ nav ul li a:hover {
     background-color: darkred;
 }
 
-
-
 .carrossel-container {
     position: relative;
     max-width: 100%;
@@ -250,46 +245,43 @@ nav ul li a:hover {
     color: darkred;
 }
 
-
-
-
-  .gradedefilmes {
+.gradedefilmes {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 20px;
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
-  }
+}
 
-  .filme-container {
+.filme-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     width: 100%;
-  }
+}
 
-  .filme {
+.filme {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-  }
+}
 
-  .filme img {
+.filme img {
     width: 100%;
     height: 270px;
     object-fit: cover;
     border-radius: 8px;
     transition: transform 0.3s;
-  }
+}
 
-  .filme:hover img {
+.filme:hover img {
     transform: scale(1.02);
-  }
+}
 
-  .sessao-lista {
+.sessao-lista {
     flex: 1;
     width: 100%;
     padding: 10px;
@@ -298,17 +290,17 @@ nav ul li a:hover {
     color: #fff;
     font-family: 'Merriweather', serif;
     font-size: 14.5px;
-  }
+}
 
-  .swal2-popup .sessao-wrapper {
+.swal2-popup .sessao-wrapper {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
     justify-content: center;
     margin-top: 20px;
-  }
+}
 
-  .swal2-popup .sessao-card {
+.swal2-popup .sessao-card {
     background: #b00;
     color: white;
     padding: 12px;
@@ -317,29 +309,29 @@ nav ul li a:hover {
     text-align: center;
     font-weight: bold;
     box-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
-  }
+}
 
-  .swal2-popup .sessao-hora {
+.swal2-popup .sessao-hora {
     font-size: 1.1rem;
-  }
+}
 
-  .swal2-popup .sessao-data {
+.swal2-popup .sessao-data {
     margin-top: 4px;
     font-size: 0.95rem;
-  }
+}
 
-  .swal2-popup .sessao-comprar {
+.swal2-popup .sessao-comprar {
     margin-top: 6px;
     font-size: 0.9rem;
-  }
+}
 
-  .swal2-popup .sessao-sala {
+.swal2-popup .sessao-sala {
     font-size: 0.85rem;
     text-transform: uppercase;
     margin-top: 2px;
-  }
+}
 
-  .botaosess {
+.botaosess {
     margin-top: 10px;
     padding: 5px 16px;
     background-color: darkred;
@@ -350,14 +342,11 @@ nav ul li a:hover {
     font-weight: bold;
     transition: background-color 0.3s ease;
     font-size: 13px;
-  }
+}
 
-  .botaosess:hover {
+.botaosess:hover {
     background-color: #a00000;
-  }
-
-
-
+}
 
 a {
     border: none;
@@ -411,7 +400,6 @@ a:hover {
     transform: scale(1.05);
 }
 
-
 /* FOOTER MODERNO ADAPTADO PARA HTML EXISTENTE */
 footer {
     background-color: #1a1a1a;
@@ -442,7 +430,6 @@ footer {
     width: fit-content;
     white-space: nowrap;
 }
-
 
 .colfooter ul {
     list-style: none;
@@ -502,7 +489,6 @@ footer {
     flex-direction: row;
 }
 
-
 .barraverm {
     background-color: #B90000;
     display: flex;
@@ -523,7 +509,6 @@ img, svg {
     vertical-align: middle;
     width: 27px;
 }
-
 
 .search-box {
     display: flex;
@@ -546,69 +531,6 @@ img, svg {
     cursor: pointer;
 }
 
-
-/* Core styles remain the same */
-
-
-
-
-
-.div-header {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-}
-
-
-
-/* Fix film grid layout */
-.gradedefilmes {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.filme {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 20px;
-    width: 100%; /* Ensure full width within grid cell */
-}
-
-.filme img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 5px;
-    transition: transform 0.3s;
-}
-
-/* Fix edit button alignment */
-.edit {
-    background-color: rgba(255, 0, 0, 0.65);
-    color: white;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    margin: 10px auto 0;
-    padding: 6px 10px;
-    border-radius: 10px;
-    width: auto;
-    min-width: 62px;
-    text-align: center;
-    font-size: 14px;
-}
-
-/* Fix button layout */
 .botoes {
     display: flex;
     justify-content: center;
@@ -617,132 +539,150 @@ img, svg {
     width: 100%;
 }
 
-/* Carousel/Slide responsive fixes */
-.slide img {
-    width: 90%;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-    border-radius: 20px;
-}
+/* ==================== MEDIA QUERIES RESPONSIVAS ==================== */
 
-.texto {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    transform: translateY(-50%);
-    color: white;
-    max-width: 80%;
-}
-
-/* Footer responsive fixes */
-.main_footer_container .content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 30px;
-    padding: 0 20px;
-}
-
-/* TABLET DEVICES */
-@media (max-width: 1024px) {
+/* DESKTOP GRANDE */
+@media (max-width: 1200px) {
     .search-box {
-        margin-right: 15px;
+        margin-right: 4vh;
     }
     
-    .search-box input {
-        width: 150px;
-    }
-}
-
-@media (max-width: 900px) {
     .gradedefilmes {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    }
-    
-    .filme img {
-        height: 250px;
+        max-width: 1000px;
     }
 }
 
-@media (max-width: 768px) {
+/* TABLET GRANDE */
+@media (max-width: 1024px) {
     header {
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding: 12px 15px;
-        justify-content: space-between;
+        padding: 8px 20px;
     }
     
     .logo {
-        margin-bottom: 0;
+        width: 16vh;
+    }
+    
+    .search-box {
+        margin-right: 2vh;
+    }
+    
+    .search-box input {
+        width: 140px;
+    }
+    
+    .gradedefilmes {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 18px;
+    }
+    
+    .slide img {
+        max-height: 400px;
+    }
+    
+    .texto h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* TABLET */
+@media (max-width: 768px) {
+    header {
+        padding: 10px 15px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .logo {
         width: 120px;
         order: 1;
-        margin-left: 48vh;
+    }
+    
+    .acao {
+        order: 2;
+        gap: 10px;
     }
     
     .div-header {
         order: 3;
         width: 100%;
         justify-content: center;
-        margin-top: 15px;
-    }
-    
-    .acao {
-        order: 2;
-        margin-top: 0;
+        margin-top: 10px;
     }
     
     .search-box {
-        width: 100%;
-        margin: 15px auto;
         order: 4;
+        width: 100%;
+        margin: 10px 0 0 0;
         justify-content: center;
-        padding-left: 25vh;
     }
     
     .search-box input {
-        width: 80%;
-        max-width: 300px;
+        width: 70%;
+        max-width: 250px;
     }
     
     nav ul {
         justify-content: center;
         flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .gradedefilmes {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .filme img {
+        height: 220px;
     }
     
     .slide img {
-        max-height: 300px;
-        border-radius: 15px;
+        max-height: 280px;
+        width: 95%;
+    }
+    
+    .texto {
+        left: 8%;
+        max-width: 70%;
     }
     
     .texto h2 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
     
     .texto p {
         font-size: 0.9rem;
-        max-width: 350px;
+        max-width: 300px;
     }
     
     .menu-perfil {
-        right: 0;
+        width: 200px;
+    }
+    
+    .main_footer_container .content {
+        flex-direction: column;
+        gap: 25px;
     }
     
     .colfooter {
-        flex: 1 1 200px;
+        flex: 1 1 auto;
     }
 }
 
-/* MOBILE DEVICES */
+/* MOBILE GRANDE */
 @media (max-width: 576px) {
     header {
-        padding: 10px;
+        padding: 8px 12px;
     }
     
     .logo {
-        width: 110px;
+        width: 100px;
+    }
+    
+    .btn-perfil, .menu-button {
+        padding: 8px 12px;
+        font-size: 14px;
     }
     
     nav ul {
@@ -753,15 +693,9 @@ img, svg {
         font-size: 14px;
     }
     
-    .div-header {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-    }
-    
     .categorias {
-        gap: 10px;
+        gap: 12px;
+        padding: 15px;
     }
     
     .categorias a {
@@ -771,69 +705,69 @@ img, svg {
     
     .gradedefilmes {
         grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        padding: 15px;
-        width: 90%;
-        margin: 0 auto;
+        gap: 12px;
+        padding: 12px;
+        width: 95%;
     }
     
     .filme img {
-        height: 200px;
+        height: 180px;
     }
     
     .slide img {
         max-height: 200px;
-        border-radius: 12px;
+        width: 98%;
     }
     
     .texto {
         left: 5%;
+        max-width: 85%;
     }
     
     .texto h2 {
-        font-size: 1.2rem;
-        margin-bottom: 5px;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
     }
     
     .texto p {
         font-size: 0.8rem;
-        max-width: 300px;
+        max-width: 280px;
     }
     
     .edit {
         width: 90%;
-        padding: 6px 10px;
+        padding: 5px 8px;
         font-size: 12px;
     }
     
     .botao-add-filme a {
-        font-size: 0.9rem;
-        padding: 10px 20px;
+        font-size: 1rem;
+        padding: 12px 25px;
     }
     
     .menu-perfil {
         width: 180px;
-        right: 0;
     }
     
     .botoes {
-        width: 100%;
         justify-content: center;
-        margin-left: -23px;
-    }
-    
-    .main_footer_container .content {
-        gap: 20px;
+        gap: 8px;
     }
 }
 
+/* MOBILE MÉDIO */
 @media (max-width: 480px) {
-    .logo {
-        width: 100px;
+    header {
+        padding: 6px 10px;
     }
     
-    header {
-        padding: 8px;
+    .logo {
+        width: 90px;
+    }
+    
+    .btn-perfil, .menu-button {
+        padding: 6px 10px;
+        font-size: 13px;
     }
     
     nav ul {
@@ -844,30 +778,25 @@ img, svg {
         font-size: 13px;
     }
     
-    .btn-perfil, .menu-button {
-        padding: 8px 12px;
-        font-size: 14px;
-    }
-    
-    .btn-perfil2 {
-        width: 40px;
+    .search-box input {
+        width: 80%;
+        padding: 5px 8px;
+        font-size: 13px;
     }
     
     .gradedefilmes {
-        width: 95%;
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
         padding: 10px;
+        width: 98%;
     }
     
     .filme img {
-        height: 180px;
+        height: 160px;
     }
     
     .slide img {
         max-height: 180px;
-        border-radius: 8px;
-        width: 95%;
     }
     
     .texto h2 {
@@ -876,61 +805,72 @@ img, svg {
     
     .texto p {
         font-size: 0.75rem;
-        max-width: 250px;
+        max-width: 240px;
     }
     
     .edit {
         font-size: 11px;
-        padding: 5px 8px;
+        padding: 4px 6px;
     }
     
     .botao-add-filme a {
-        font-size: 0.8rem;
-        padding: 8px 16px;
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+    
+    .menu-perfil {
+        width: 160px;
     }
 }
 
-/* Very small phones */
+/* MOBILE PEQUENO */
 @media (max-width: 380px) {
     header {
-        padding: 5px;
+        padding: 5px 8px;
     }
     
     .logo {
-        width: 90px;
+        width: 80px;
     }
     
-    .div-header {
-        gap: 5px;
+    .btn-perfil, .menu-button {
+        padding: 5px 8px;
+        font-size: 12px;
     }
     
     nav ul {
-        gap: 5px;
+        gap: 6px;
     }
     
     nav ul li a {
         font-size: 12px;
     }
     
-    .btn-perfil, .menu-button {
-        padding: 6px 10px;
-        font-size: 13px;
-    }
-    
     .search-box input {
-        width: 90%;
-        padding: 5px 8px;
-        font-size: 13px;
+        width: 85%;
+        padding: 4px 6px;
+        font-size: 12px;
     }
     
     .gradedefilmes {
-        grid-template-columns: repeat(1, 1fr);
-        max-width: 250px;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 8px;
+        max-width: 220px;
         margin: 0 auto;
     }
     
     .filme img {
-        height: 300px;
+        height: 280px;
+    }
+    
+    .slide img {
+        max-height: 150px;
+    }
+    
+    .texto {
+        left: 3%;
+        max-width: 90%;
     }
     
     .texto h2 {
@@ -941,40 +881,23 @@ img, svg {
         font-size: 0.7rem;
         max-width: 200px;
     }
-}
-
-/* Special layout fix for header on smaller screens */
-@media (max-width: 576px) {
-    header {
-        display: grid;
-        grid-template-areas:
-            "logo acao"
-            "div-header div-header"
-            "search search";
-        align-items: center;
-        grid-gap: 10px;
+    
+    .edit {
+        font-size: 10px;
+        padding: 3px 5px;
     }
     
-    .logo {
-        grid-area: logo;
-        justify-self: start;
+    .botao-add-filme a {
+        font-size: 0.8rem;
+        padding: 8px 16px;
     }
     
-    .acao {
-        grid-area: acao;
-        justify-self: end;
-        margin: 0;
+    .menu-perfil {
+        width: 150px;
     }
     
-    .div-header {
-        grid-area: div-header;
-        width: 100%;
-        margin: 0;
-    }
-    
-    .search-box {
-        grid-area: search;
-        width: 100%;
-        margin: 5px 0;
+    .categorias a {
+        font-size: 12px;
+        padding: 3px 6px;
     }
 }

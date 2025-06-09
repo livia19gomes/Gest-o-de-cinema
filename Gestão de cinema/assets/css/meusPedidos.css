@@ -376,7 +376,7 @@ footer {
     }
 
     .perfil-lateral {
-        width: 100%;
+        width: 83%;
         border-right: none;
         border-bottom: 2px solid #333;
         padding: 30px;
@@ -456,7 +456,7 @@ footer {
         flex-direction: column;
         gap: 22px;
         align-items: center;
-        margin-left: -1vh;
+        margin-left: -17vh;
     }
 
     .acao {
