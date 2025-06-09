@@ -166,7 +166,7 @@ function carregarSessoes(idFilme) {
       if (sessoes.length === 0) {
         html = "<p>Sem sessões disponíveis para este filme.</p>";
       } else {
-        html += `<div class=\"sessao-wrapper\">`;
+        html += '<div class="sessao-wrapper">';
         sessoes.forEach(sessao => {
           const dataObj = new Date(sessao.data_sessao);
           const dia = dataObj.getDate();
@@ -176,16 +176,32 @@ function carregarSessoes(idFilme) {
 
           const horarioLimpo = sessao.horario.replace(/^0/, '').replace(/:00$/, '');
 
+          const url = `cadeirasDisponiveis.html?id=${idFilme}` +
+                      `&id_sessao=${sessao.id_sessao}` +
+                      `&titulo=${encodeURIComponent(sessao.titulo)}` +
+                      `&datasessao=${encodeURIComponent(sessao.data_sessao)}` +
+                      `&horario=${encodeURIComponent(sessao.horario)}` +
+                      `&descricao=${encodeURIComponent(sessao.descricao)}` +
+                      `&valor_unitario=${encodeURIComponent(sessao.valor_unitario)}`;
+
           html += `
-            <div class=\"sessao-card\">
-              <div class=\"sessao-hora\">${horarioLimpo}</div>
-              <div class=\"sessao-data\">${dataFormatada}</div>
-              <div class=\"sessao-comprar\">Comprar</div>
-              <div class=\"sessao-sala\">${sessao.descricao}</div>
+            <div class="sessao-card">
+              <div class="sessao-hora">${horarioLimpo}</div>
+              <div class="sessao-data">${dataFormatada}</div>
+              <a class="sessao-comprar" href="${url}" style="
+                color: white;
+                padding: 6px 14px;
+                background: transparent;
+                text-decoration: none;
+                font-weight: bold;
+              " onmouseover="this.style.backgroundColor='rgba(255,255,255,0.2)'" onmouseout="this.style.backgroundColor='transparent'">
+                Comprar
+              </a>
+              <div class="sessao-sala">${sessao.descricao}</div>
             </div>
           `;
         });
-        html += `</div>`;
+        html += '</div>';
       }
 
       Swal.fire({

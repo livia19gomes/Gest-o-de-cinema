@@ -624,7 +624,7 @@ footer {
 /* Very small devices (small phones, 375px and below) */
 @media (max-width: 375px) {
     header {
-        padding: 8px 5px;
+        padding: 8px 58px;
     }
 
     .logo {

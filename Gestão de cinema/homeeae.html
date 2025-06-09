@@ -10,7 +10,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- <script src="assets/js/seguranca-adm.js" defer></script> -->
+    
+    <script src="assets/js/seguranca-adm.js" defer></script>
 </head>
 
    <script>
@@ -244,9 +245,9 @@ function carregarSessoes(idFilme) {
       let html = "";
 
       if (sessoes.length === 0) {
-        html = "<p>Sem sessões disponíveis para este filme no momento.</p>";
+        html = "<p>Sem sessões disponíveis para este filme.</p>";
       } else {
-        html += `<div class=\"sessao-wrapper\">`;
+        html += '<div class="sessao-wrapper">';
         sessoes.forEach(sessao => {
           const dataObj = new Date(sessao.data_sessao);
           const dia = dataObj.getDate();
@@ -256,16 +257,32 @@ function carregarSessoes(idFilme) {
 
           const horarioLimpo = sessao.horario.replace(/^0/, '').replace(/:00$/, '');
 
+          const url = `cadeirasDisponiveis.html?id=${idFilme}` +
+                      `&id_sessao=${sessao.id_sessao}` +
+                      `&titulo=${encodeURIComponent(sessao.titulo)}` +
+                      `&datasessao=${encodeURIComponent(sessao.data_sessao)}` +
+                      `&horario=${encodeURIComponent(sessao.horario)}` +
+                      `&descricao=${encodeURIComponent(sessao.descricao)}` +
+                      `&valor_unitario=${encodeURIComponent(sessao.valor_unitario)}`;
+
           html += `
-            <div class=\"sessao-card\">
-              <div class=\"sessao-hora\">${horarioLimpo}</div>
-              <div class=\"sessao-data\">${dataFormatada}</div>
-              <div class=\"sessao-comprar\">Comprar</div>
-              <div class=\"sessao-sala\">${sessao.descricao}</div>
+            <div class="sessao-card">
+              <div class="sessao-hora">${horarioLimpo}</div>
+              <div class="sessao-data">${dataFormatada}</div>
+              <a class="sessao-comprar" href="${url}" style="
+                color: white;
+                padding: 6px 14px;
+                background: transparent;
+                text-decoration: none;
+                font-weight: bold;
+              " onmouseover="this.style.backgroundColor='rgba(255,255,255,0.2)'" onmouseout="this.style.backgroundColor='transparent'">
+                Comprar
+              </a>
+              <div class="sessao-sala">${sessao.descricao}</div>
             </div>
           `;
         });
-        html += `</div>`;
+        html += '</div>';
       }
 
       Swal.fire({
