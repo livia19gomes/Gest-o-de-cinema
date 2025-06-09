@@ -104,7 +104,7 @@ body {
 }
 
 
- @media (min-width: 320px) {
+ @media (max-width: 480px) {
     .modal-box {
         width: 806px;
         font-size: 40px;
