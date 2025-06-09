@@ -204,7 +204,7 @@ function buscarFilme() {
   if (!termo) return;
 
   $.ajax({
-    url: "http://192.168.1.127:5000/buscar-filmes",
+    url: "http://10.92.3.162:5000/buscar-filmes",
     method: 'GET',
     data: { termo },
     success: function (filmes) {
@@ -213,7 +213,7 @@ function buscarFilme() {
         html += `
           <div class="filme">
             <a href="datasessoesadm.html?id=${filme.id}&titulo=${encodeURIComponent(filme.titulo)}&classificacao=${filme.classificacao}&genero=${encodeURIComponent(filme.genero)}&trailer=${encodeURIComponent(filme.link || '')}&sinopse=${encodeURIComponent(filme.sinopse)}">
-              <img src="http://192.168.1.127:5000/static/uploads/Filmes/${filme.id}.jpeg" alt="${filme.titulo}">
+              <img src="http://10.92.3.162:5000/static/uploads/Filmes/${filme.id}.jpeg" alt="${filme.titulo}">
             </a>
             <button class='botaosess' onclick="carregarSessoes(${filme.id})">Ver Sessões</button>
           </div>
@@ -237,7 +237,7 @@ function buscarFilme() {
 
 function carregarSessoes(idFilme) {
   $.ajax({
-    url: `http://192.168.1.127:5000/sessoes/${idFilme}`,
+    url: `http://10.92.3.162:5000/sessoes/${idFilme}`,
     method: 'GET',
     success: function (response) {
       const sessoes = response.sessoes;
@@ -291,7 +291,7 @@ $("#searchInput").on("keypress", function (e) {
 
 function carregaProdutos() {
   var settings = {
-    "url": "http://192.168.1.127:5000/filmes",
+    "url": "http://10.92.3.162:5000/filmes",
     "method": "GET",
     "timeout": 0,
     "headers": {
@@ -309,7 +309,7 @@ function carregaProdutos() {
       html += `     
         <div class="filme">
           <a href="datasessoesadm.html?id=${item.id_filme}&titulo=${item.titulo}&classificacao=${item.classificacao}&genero=${item.genero}&trailer=${item.link}&sinopse=${item.sinopse}">
-            <img src="http://192.168.1.127:5000/static/uploads/Filmes/${item.id_filme}.jpeg" alt="${item.titulo}">
+            <img src="http://10.92.3.162:5000/static/uploads/Filmes/${item.id_filme}.jpeg" alt="${item.titulo}">
           </a>
           <div class="botoes">
             <a href="editafilme.html?id=${item.id_filme}&titulo=${item.titulo}&classificacao=${item.classificacao}&genero=${item.genero}&sinopse=${item.sinopse}&duracao=${item.duracao}&link=${item.link}" class="edit">Editar</a>
@@ -326,7 +326,7 @@ function alterarstatus(id_filme) {
   var token = localStorage.getItem("token");
 
   var settings = {
-    "url": "http://192.168.1.127:5000/filmes/" + id_filme + "/inativar",
+    "url": "http://10.92.3.162:5000/filmes/" + id_filme + "/inativar",
     "method": "PUT",
     "timeout": 0,
     "headers": {
