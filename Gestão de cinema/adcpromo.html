@@ -101,21 +101,22 @@
 
     <main>
         <h2>Adicionar promoção</h2>
-        <form id="form_cadastro">
-            <label for="id_filme">Selecione um Filme:</label>
-            <select name="id_filme" id="id_filme" required>
-                <option selected disabled>Selecione um Filme</option>
+            <form id="form_cadastro">
+            <label for="filme">Escolha o filme:</label>
+            <select id="filme" name="filme" required>
+            <option value="" disabled selected>Selecione um filme</option>
             </select>
-
-            <label for="valor" class="form-label">Valor:</label>
-            <input type="text" id="valor" name="valor" required>
 
             <label for="id_sessao">Selecione uma sessão:</label>
-            <select name="id_sessao" id="id_sessao" required>
-                <option selected disabled>Selecione uma sessão</option>
+            <select id="id_sessao" name="id_sessao" required>
+            <option value="" disabled selected>Selecione uma sessão</option>
             </select>
 
-            <button type="submit">Finalizar</button>
+
+            <label for="valor" class="form-label">Valor promocional:</label>
+            <input type="text" id="valor" name="valor" required>
+
+            <button type="submit">Adicionar</button>
 
         </form>
     </main>
@@ -165,16 +166,55 @@
         </div>
     </footer>
 
-    <script>
-        const input = document.getElementById('valor');
+ <script>
+    const input = document.getElementById('valor');
 
-        input.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não for número
+    input.addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\D/g, '');
+        value = (parseInt(value, 10) / 100).toFixed(2);
+        value = value.replace('.', ',');
+        e.target.value = `R$ ${value}`;
+    });
 
-            value = (parseInt(value, 10) / 100).toFixed(2); // Divide por 100 e fixa 2 casas decimais
-            value = value.replace('.', ','); // Troca ponto por vírgula
-            e.target.value = `R$ ${value}`;
+    function getValorLimpo() {
+        return input.value.replace(/\D/g, '') / 100;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectFilme = document.getElementById("filme");
+        const selectSessao = document.getElementById("id_sessao");
+        const token = localStorage.getItem("token");
+
+        // Primeiro, carrega os filmes
+        fetch("http://10.92.3.162:5000/filmes", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.filmes || data.filmes.length === 0) {
+                Swal.fire("Aviso", "Nenhum filme encontrado.", "warning");
+                return;
+            }
+
+            data.filmes.forEach(filme => {
+                const option = document.createElement("option");
+                option.value = filme.id_filme;
+                option.textContent = filme.titulo;
+                selectFilme.appendChild(option);
+            });
+        })
+        .catch(() => {
+            Swal.fire("Erro", "Erro ao carregar filmes.", "error");
         });
+
+
+        // Quando selecionar um filme, carrega as sessões daquele filme
+        selectFilme.addEventListener("change", function () {
+            const idFilme = selectFilme.value;
+            selectSessao.innerHTML = '<option value="" disabled selected>Selecione uma sessão</option>';
 
         // Se quiser pegar o valor limpo depois (por exemplo, no envio do form):
         function getValorLimpo() {
@@ -188,119 +228,61 @@
     </script>
 
 
-    <script>
-function carregaProdutos() {
-    const settings = {
-        url: "http://10.92.3.162:5000/filmes",
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    };
-
-    $.ajax(settings).done(function (response) {
-        const selectFilme = document.getElementById("id_filme");
-        response.filmes.forEach(item => {
-            selectFilme.innerHTML += `<option value="${item.id_filme}">${item.titulo}</option>`;
-        });
-    });
-}
-
-carregaProdutos();
-
-function carregarSessoes() {
-    const id_filme = $("#id_filme").val();
-    const selectSessao = document.getElementById("id_sessao");
-    selectSessao.innerHTML = '<option selected disabled>Selecione uma sessão</option>';
-
-    const settings = {
-        url: `http://10.92.3.162:5000/sessoes/${id_filme}`,
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + localStorage.getItem("token")
-        }
-    };
-
-    $.ajax(settings).done(function (response) {
-        response.sessoes.forEach(item => {
-            const dataFormatada = new Date(item.data_sessao).toLocaleDateString('pt-BR');
-            const horaFormatada = item.horario.slice(0, 5);
-            selectSessao.innerHTML += `<option value="${item.id_sessao}"
-              data-data_sessao="${item.data_sessao}"
-              data-horario="${item.horario}"
-              data-id_sala="${item.id_sala}">
-              ${item.descricao} - ${horaFormatada} - ${dataFormatada}
-            </option>`;
-        });
-    });
-}
-
-$("#id_filme").on("change", carregarSessoes);
-
-$("#form_cadastro").on("submit", function (e) {
-    e.preventDefault();
-
-    const token = localStorage.getItem("token");
-    const valorStr = $("#valor").val();
-    const valor = parseFloat(valorStr.replace("R$", "").replace(",", ".").trim());
-    const idSessao = $("#id_sessao").val();
-
-    $.ajax({
-        url: `http://10.92.3.162:5000/sessoes/promocao/${idSessao}`,
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer " + token
-        },
-        data: JSON.stringify({ valor_promocional: valor }),
-        success: function (response) {
-            Swal.fire("Sucesso!", response.message || "Promoção aplicada!", "success")
-                .then(() => window.location.href = "homeeae.html");
-        },
-        error: function (xhr) {
-            const mensagem = xhr.responseJSON?.error || "Erro inesperado.";
-            Swal.fire("Erro!", mensagem, "error");
-        }
-    });
-});
-
-
-
-        $("#id_filme").on("change", function () {
-            var id_filme = $(this).val();
-            console.log(id_filme);
-
-            var settings = {
-                "url": "http://10.92.3.162:5000/sessoes/" + id_filme,
-                "method": "GET",
-                "timeout": 0,
-                "headers": {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + localStorage.getItem("token")
+            fetch(`http://10.92.3.162:5000/sessoes/${idFilme}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
                 }
-            };
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (!data.sessoes || data.sessoes.length === 0) {
+                    Swal.fire("Aviso", "Nenhuma sessão encontrada para este filme.", "warning");
+                    return;
+                }
 
-            $.ajax(settings).done(function (response) {
-                const select = document.getElementById("id_sessao");
-                select.innerHTML = '<option selected disabled>Selecione uma sessão</option>'; // limpa anterior
+                data.sessoes.forEach(sessao => {
+                    const dataFormatada = new Date(sessao.data_sessao).toLocaleDateString('pt-BR');
+                    const horaFormatada = sessao.horario.slice(0, 5);
 
-                response.sessoes.forEach((item) => {
-                    const dataFormatada = new Date(item.data_sessao).toLocaleDateString('pt-BR', {
-                        day: '2-digit', month: '2-digit', year: 'numeric'
-                    });
-
-                    const horaFormatada = item.horario.substring(0, 5);
-
-                    select.innerHTML += `
-          <option value="${item.id_sessao}">${item.descricao} - ${horaFormatada} - ${dataFormatada}</option>
-        `;
+                    const option = document.createElement("option");
+                    option.value = sessao.id_sessao;
+                    option.textContent = `${sessao.descricao} - ${horaFormatada} - ${dataFormatada}`;
+                    selectSessao.appendChild(option);
                 });
+            })
+            .catch(() => {
+                Swal.fire("Erro", "Erro ao carregar sessões.", "error");
             });
         });
-    </script>
 
-    <span id="data-formatada"></span>
+        $("#form_cadastro").on("submit", function (e) {
+            e.preventDefault();
+
+            const valorStr = $("#valor").val();
+            const valor = parseFloat(valorStr.replace("R$", "").replace(",", ".").trim());
+            const idSessao = $("#id_sessao").val();
+
+            $.ajax({
+                url: "http://10.92.3.162:5000/promocao",
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                data: JSON.stringify({ id_sessao: idSessao, valor_promocional: valor }),
+                success: function (response) {
+                    Swal.fire("Sucesso!", response.mensagem || "Promoção aplicada!", "success")
+                        .then(() => window.location.href = "homeeae.html");
+                },
+                error: function (xhr) {
+                    const mensagem = xhr.responseJSON?.erro || "Erro inesperado.";
+                    Swal.fire("Erro!", mensagem, "error");
+                }
+            });
+        });
+    });
+</script>
 
 
 </body>
