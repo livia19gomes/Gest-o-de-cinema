@@ -31,7 +31,6 @@ nav ul {
     list-style: none;
     display: flex;
     gap: 30px;
-    margin-right: auto;
 }
 
 nav ul li a {
@@ -418,10 +417,11 @@ footer {
 
 .search-box {
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    margin-left: auto;
-    margin-right: 8vh;
+    gap: 20px;
+    margin-right: 20px;
 }
 
 .search-box input {
