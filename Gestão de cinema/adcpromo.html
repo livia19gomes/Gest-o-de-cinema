@@ -16,6 +16,9 @@
 
     <script src="assets/js/seguranca-adm.js" defer></script>
 
+    <script src="assets/js/seguranca-adm.js" defer></script>
+
+
     <script>
         function toggleMenu() {
             const menu = document.getElementById("menuPerfil");
@@ -103,10 +106,9 @@
             <div class="colfooter">
                 <h3 class="titleFooter"> Menu</h3>
                 <ul>
-                    <li><a href="#" title="Página Inícial">Página Inícial</a></li>
-                    <li><a href="promoções.html" title="Promoções">Promoções</a></li>
-                    <li><a href="relatorios.html" title="Relatório">Relatório</a></li>
-                    <li><a href="cadastro.html" title="Cadastro">Cadastro</a></li>
+                    <li><a href="homeeae.html" title="Página Inícial">Página Inícial</a></li>
+                    <li><a href="promoadm.html" title="Promoções">Promoções</a></li>
+                    <li><a href="relatorios_adm.html" title="Relatório">Relatório</a></li>
                 </ul>
             </div>
             <div class="colfooter">
@@ -167,6 +169,7 @@
 
             // Carrega os filmes
             console.log("Carregando filmes...");
+            // Primeiro, carrega os filmes
             fetch("http://10.92.3.162:5000/filmes", {
                 method: "GET",
                 headers: {
@@ -202,6 +205,25 @@
                 Swal.fire("Erro", "Erro ao carregar filmes.", "error");
             });
 
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.filmes || data.filmes.length === 0) {
+                        Swal.fire("Aviso", "Nenhum filme encontrado.", "warning");
+                        return;
+                    }
+
+                    data.filmes.forEach(filme => {
+                        const option = document.createElement("option");
+                        option.value = filme.id_filme;
+                        option.textContent = filme.titulo;
+                        selectFilme.appendChild(option);
+                    });
+                })
+                .catch(() => {
+                    Swal.fire("Erro", "Erro ao carregar filmes.", "error");
+                });
+
+
             // Quando selecionar um filme, carrega as sessões daquele filme
             selectFilme.addEventListener("change", function () {
                 const idFilme = selectFilme.value;
@@ -213,12 +235,27 @@
                 if (!idFilme) return;
 
                 console.log("Carregando sessões para o filme:", idFilme);
+
+                selectSessao.innerHTML = '<option value="" disabled selected>Selecione uma sessão</option>';
+
+                // Se quiser pegar o valor limpo depois (por exemplo, no envio do form):
+                function getValorLimpo() {
+                    return input.value.replace(/\D/g, '') / 100;
+                    // Exemplo: "R$ 12,50" → 12.5
+                }
+
+                var nome = localStorage.getItem("nome")
+                document.getElementById("nome-visitante").innerHTML = nome
+
+
+
                 fetch(`http://10.92.3.162:5000/sessoes/${idFilme}`, {
                     method: "GET",
                     headers: {
                         "Authorization": "Bearer " + token
                     }
                 })
+
                 .then(res => {
                     console.log("Status da resposta sessões:", res.status);
                     return res.json();
@@ -250,6 +287,29 @@
             });
 
             // Submissão do formulário
+
+                    .then(res => res.json())
+                    .then(data => {
+                        if (!data.sessoes || data.sessoes.length === 0) {
+                            Swal.fire("Aviso", "Nenhuma sessão encontrada para este filme.", "warning");
+                            return;
+                        }
+
+                        data.sessoes.forEach(sessao => {
+                            const dataFormatada = new Date(sessao.data_sessao).toLocaleDateString('pt-BR');
+                            const horaFormatada = sessao.horario.slice(0, 5);
+
+                            const option = document.createElement("option");
+                            option.value = sessao.id_sessao;
+                            option.textContent = `${sessao.descricao} - ${horaFormatada} - ${dataFormatada}`;
+                            selectSessao.appendChild(option);
+                        });
+                    })
+                    .catch(() => {
+                        Swal.fire("Erro", "Erro ao carregar sessões.", "error");
+                    });
+            });
+
             $("#form_cadastro").on("submit", function (e) {
                 e.preventDefault();
 
@@ -274,6 +334,10 @@
                     },
                     error: function (xhr) {
                         console.error("Erro ao criar promoção:", xhr);
+                        Swal.fire("Sucesso!", response.mensagem || "Promoção aplicada!", "success")
+                            .then(() => window.location.href = "homeeae.html");
+                    },
+                    error: function (xhr) {
                         const mensagem = xhr.responseJSON?.erro || "Erro inesperado.";
                         Swal.fire("Erro!", mensagem, "error");
                     }
@@ -281,6 +345,7 @@
             });
         });
     </script>
+
 
 </body>
 </html>
