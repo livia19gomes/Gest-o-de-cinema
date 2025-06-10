@@ -232,7 +232,9 @@
                             title: "Sucesso!",
                             text: resposta.mensagem || "Dados atualizados com sucesso.",
                             confirmButtonText: "OK"
-                        });
+                        }).then(() => {
+                        window.location.href = "homeeae.html";
+                    });
                     },
                     error: function (erro) {
                         console.error("Erro completo:", erro);
