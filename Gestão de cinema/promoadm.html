@@ -109,9 +109,12 @@
     </main>
 
     <script>
-        const listaPromocoes = document.getElementById("lista-promocoes");
-        const token = localStorage.getItem("token");
+        // Declaração das variáveis globais
+        let listaPromocoes;
+        let token;
 
+    // Função para listar as promoções
+    async function listarPromocoes() {
         fetch("http://10.92.3.162:5000/promocao", {
             method: "GET",
             headers: {
@@ -129,18 +132,51 @@
 
             listaPromocoes.innerHTML = "";
 
-            data.sessoes_promocionais.forEach(promo => {
+            data.sessoes_promocionais.forEach(async promo => {
                 const dataFormatada = new Date(promo.data).toLocaleDateString('pt-BR');
                 const horaFormatada = promo.horario.slice(0, 5);
                 const valorFormatado = promo.valor_promocional.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
+                // Busca o ID do filme pela API para usar na URL da imagem
+                let imagemFilme = 'assets/img/filme-placeholder.jpg';
+                try {
+                    const responseFilme = await fetch(`http://10.92.3.162:5000/buscar-filmes?termo=${encodeURIComponent(promo.filme)}`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": "Bearer " + token
+                        }
+                    });
+                    
+                    if (responseFilme.ok) {
+                        const filmesData = await responseFilme.json();
+                        if (filmesData && filmesData.length > 0) {
+                            // Procura pelo filme exato
+                            const filmeEncontrado = filmesData.find(filme => 
+                                filme.titulo.toLowerCase() === promo.filme.toLowerCase()
+                            );
+                            if (filmeEncontrado) {
+                                imagemFilme = `http://10.92.3.162:5000/static/uploads/Filmes/${filmeEncontrado.id}.jpeg`;
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.log("Erro ao buscar imagem do filme:", error);
+                }
+
                 const promoHTML = `
                     <div class="promo-card">
-                        <h3>${promo.filme}</h3>
-                        <p><strong>Data:</strong> ${dataFormatada}</p>
-                        <p><strong>Horário:</strong> ${horaFormatada}</p>
-                        <p><strong>Valor promocional:</strong> ${valorFormatado}</p>
-                        <button class="adicionar">Excluir</button>
+                        <div class="promo-content">
+                            <div class="promo-image">
+                                <img src="${imagemFilme}" alt="${promo.filme}" onerror="this.src='assets/img/filme-placeholder.jpg'">
+                            </div>
+                            <div class="promo-info">
+                                <h3>${promo.filme}</h3>
+                                <p><strong>Data:</strong> ${dataFormatada}</p>
+                                <p><strong>Horário:</strong> ${horaFormatada}</p>
+                                <p><strong>Valor promocional:</strong> ${valorFormatado}</p>
+                                <button class="adicionar" onclick="excluirPromocao(${promo.id_sessao})">Excluir</button>
+                            </div>
+                        </div>
                     </div>
                 `;
 
@@ -151,6 +187,50 @@
             console.error("Erro ao buscar promoções:", err);
             listaPromocoes.innerHTML = '<p>Erro ao carregar promoções.</p>';
         });
+    }
+
+        function excluirPromocao(id_sessao) {
+            // Confirmação antes de excluir
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "Você não poderá reverter isso!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sim, excluir!',
+                cancelButtonText: 'Não, cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`http://10.92.3.162:5000/promocao/${id_sessao}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': 'Bearer ' + token
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.mensagem === 'Promoção removida com sucesso!') {
+                            Swal.fire('Excluído!', 'A promoção foi removida.', 'success');
+                            // Atualiza a lista de promoções
+                            listarPromocoes();
+                        } else {
+                            Swal.fire('Erro!', 'Ocorreu um erro ao excluir a promoção.', 'error');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Erro ao excluir promoção:', err);
+                        Swal.fire('Erro!', 'Ocorreu um erro ao tentar excluir.', 'error');
+                    });
+                }
+            });
+        }
+
+        // Inicialização quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            listaPromocoes = document.getElementById("lista-promocoes");
+            token = localStorage.getItem("token");
+            listarPromocoes();
+        });
+
     </script>  
 
     <div class="barra3"></div>
