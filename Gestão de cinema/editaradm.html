@@ -131,7 +131,7 @@
             </select>
 
 
-            <button type="button" id="btnSalvar">Salvar</button>
+            <button type="submit" id="btnSalvar">Salvar</button>
 
 
         </form>
@@ -180,132 +180,147 @@
 
 
 
-    <script>
-        $(document).ready(function () {
-            console.log("Documento pronto");
+   <script>
+    // Variável global para armazenar o ID
+    let id = null;
 
-            // Extrair parâmetros da URL
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
-            const nome = params.get('nome');
-            const email = params.get('email');
-            const telefone = params.get('telefone');
-            const tipo = params.get('tipo');
-            const editar = params.get('editar'); // se você queira controlar a visibilidade (Ativo/Inativo)
+    $(document).ready(function () {
+        console.log("Documento pronto");
 
-            console.log("Parâmetros recebidos:", { id, nome, email, telefone, tipo, editar });
+        // Extrair parâmetros da URL
+        const params = new URLSearchParams(window.location.search);
+        id = params.get('id');
+        const nome = params.get('nome');
+        const email = params.get('email');
+        const telefone = params.get('telefone');
+        const tipo = params.get('tipo');
+        const editar = params.get('editar'); // se você queira controlar a visibilidade (Ativo/Inativo)
 
-            // Verificar se os parâmetros estão presentes
-            if (!id || !nome || !email || !telefone || !tipo) {
-                console.error("Parâmetros necessários não fornecidos na URL");
+        console.log("Parâmetros recebidos:", { id, nome, email, telefone, tipo, editar });
+
+        // Verificar se os parâmetros estão presentes
+        if (!id || !nome || !email || !telefone || !tipo) {
+            console.error("Parâmetros necessários não fornecidos na URL");
+            Swal.fire({
+                icon: "error",
+                title: "Erro",
+                text: "Parâmetros necessários não fornecidos!"
+            }).then(() => {
+                window.location.href = "listagem.html"; // Redireciona de volta para a listagem
+            });
+            return;
+        }
+
+        // Preencher os campos com os dados passados na URL
+        $("#nome").val(nome);
+        $("#email").val(email);
+        $("#telefone").val(telefone);
+        $("#tipo").val(tipo); // Certifique-se de que o valor do tipo está correto
+
+        // Verificando a visibilidade do campo "editar" com base no parâmetro
+        if (editar === "true") {
+            $("#editar").val("true"); // "Ativo"
+        } else if (editar === "false") {
+            $("#editar").val("false"); // "Inativo"
+        }
+
+        // Preencher o campo senha como vazio
+        $("#senha").val("");
+
+        // Verificar o preenchimento dos campos no console
+        console.log("Dados preenchidos:", {
+            nome: $("#nome").val(),
+            email: $("#email").val(),
+            telefone: $("#telefone").val(),
+            tipo: $("#tipo").val(),
+            editar: $("#editar").val()
+        });
+    });
+
+    // Alternar visibilidade da senha
+    $("#togglePassword").click(function () {
+        const senhaInput = $("#senha");
+        const tipo = senhaInput.attr("type");
+
+        if (tipo === "password") {
+            senhaInput.attr("type", "text");
+            $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+        } else {
+            senhaInput.attr("type", "password");
+            $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+        }
+    });
+
+    // Clique no botão de salvar
+    $("#btnSalvar").click(function (e) {
+        e.preventDefault(); // Evita que o formulário seja enviado da forma padrão
+
+        console.log("Botão salvar clicado");
+
+        const nome = $("#nome").val();
+        const email = $("#email").val();
+        const telefone = $("#telefone").val();
+        const senha = $("#senha").val();
+        const tipo = $("#tipo").val();
+        const ativo = $("#editar").val() === "true";
+
+        if (!nome || !email || !telefone || !senha || !tipo || ativo === "") {
+            Swal.fire({
+                icon: "warning",
+                title: "Atenção",
+                text: "Por favor, preencha todos os campos obrigatórios!"
+            });
+            return;
+        }
+
+        const dados = {
+            nome: nome,
+            email: email,
+            telefone: telefone,
+            senha: senha,
+            tipo: tipo,
+            ativo: ativo
+        };
+
+        console.log("Enviando dados:", dados);
+        console.log("URL da requisição:", `http://10.92.3.162:5000/cadastros/${id}`);
+
+        if (!id) {
+            Swal.fire({
+                icon: "error",
+                title: "Erro",
+                text: "ID do usuário não encontrado. Verifique a URL."
+            });
+            return;
+        }
+
+        $.ajax({
+            method: "PUT",
+            url: `http://10.92.3.162:5000/cadastros/${id}`,
+            data: JSON.stringify(dados),
+            contentType: "application/json",
+            success: function (response) {
+                console.log("Sucesso:", response);
                 Swal.fire({
-                    icon: "error",
-                    title: "Erro",
-                    text: "Parâmetros necessários não fornecidos!"
+                    icon: "success",
+                    title: "Edição Realizada!",
+                    confirmButtonText: "OK"
                 }).then(() => {
-                    window.location.href = "listagem.html"; // Redireciona de volta para a listagem
+                    window.location.href = "homeeae.html";
                 });
-                return;
-            }
-
-            // Preencher os campos com os dados passados na URL
-            $("#nome").val(nome);
-            $("#email").val(email);
-            $("#telefone").val(telefone);
-            $("#tipo").val(tipo); // Certifique-se de que o valor do tipo está correto
-
-            // Verificando a visibilidade do campo "editar" com base no parâmetro
-            if (editar === "true") {
-                $("#editar").val("true"); // "Ativo"
-            } else if (editar === "false") {
-                $("#editar").val("false"); // "Inativo"
-            }
-
-            // Verificar o preenchimento dos campos no console
-            console.log("Dados preenchidos:", {
-                nome: $("#nome").val(),
-                email: $("#email").val(),
-                telefone: $("#telefone").val(),
-                tipo: $("#tipo").val(),
-                editar: $("#editar").val()
-            });
-
-            // Log para a senha, que não é passada pela URL
-            $("#senha").val(""); // Aqui, a senha está vazia porque não está sendo passada na URL
-        });
-
-
-
-        $("#togglePassword").click(function () {
-            const senhaInput = $("#senha");
-            const tipo = senhaInput.attr("type");
-
-            if (tipo === "password") {
-                senhaInput.attr("type", "text");
-                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
-            } else {
-                senhaInput.attr("type", "password");
-                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
-            }
-        });
-
-        $(".botao").click(function () {
-            console.log("Botão salvar clicado");
-
-            const nome = $("#nome").val();
-            const email = $("#email").val();
-            const telefone = $("#telefone").val();
-            const senha = $("#senha").val();
-            const tipo = $("#tipo").val();
-            const ativo = $("#editar").val() === "true";
-
-            if (!nome || !email || !telefone || !senha || !tipo || ativo === "") {
+            },
+            error: function (xhr, status, error) {
+                console.log("Erro ao tentar editar:", xhr.responseJSON, status, error);
                 Swal.fire({
-                    icon: "warning",
-                    title: "Atenção",
-                    text: "Por favor, preencha todos os campos obrigatórios!"
+                    title: "Erro!",
+                    text: xhr.responseJSON?.error || "Erro ao editar os dados!",
+                    icon: "error"
                 });
-                return;
             }
-
-            const dados = {
-                nome: nome,
-                email: email,
-                telefone: telefone,
-                senha: senha,
-                tipo: tipo,
-                ativo: ativo
-            };
-
-            console.log("Enviando dados:", dados);
-            console.log("URL da requisição:", `http://10.92.3.162:5000/cadastros/${id}`);
-
-            $.ajax({
-                method: "PUT",
-                url: `http://10.92.3.162:5000/cadastros/${id}`,
-                data: JSON.stringify(dados),
-                contentType: "application/json",
-                success: function (response) {
-                    console.log("Sucesso:", response);
-                    Swal.fire({
-                        icon: "success",
-                        title: "Edição Realizada!",
-                        confirmButtonText: "OK"
-                    }).then(() => {
-                        window.location.href = "homeeae.html";
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.log("Erro ao tentar editar:", xhr.responseJSON, status, error);
-                    Swal.fire({
-                        title: "Erro!",
-                        text: xhr.responseJSON?.error || "Erro ao editar os dados!",
-                        icon: "error"
-                    });
-                }
-            });
         });
-    </script>
+    });
+</script>
+
 
 
 </body>
