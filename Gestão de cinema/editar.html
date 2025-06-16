@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="assets/css/editar.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="assets/js/seguranca.js" defer></script> 
+    <!-- <script src="assets/js/seguranca.js" defer></script>  -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -24,7 +24,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
-    <script src="assets/js/seguranca-adm.js" defer></script>
 </head>
     <script>
         function toggleMenu() {
@@ -63,45 +62,29 @@
 
 <body>
     <header>
-        <a href="homePoslogin.html"><img class="logo" src="assets/img/PRIME CINE logo.png" alt="Logo empresarial">
+        <a href="homePoslogin.html">
+            <img class="logo" src="assets/img/PRIME CINE logo.png" alt="Logo empresarial">
         </a>
+        <nav>
+            <ul>
+                <li><a href="homePoslogin.html">HOME</a></li>
+                <li><a href="promoções.html">PROMOÇÕES</a></li>
+            </ul>
+        </nav>
 
-
-        <div class="div-header">
-            <div class="btn-group">
-                <button type="button" class="btn btn-secondary dropdown-toggle bg-black border-2"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    MENU
-                </button>
-
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="promoadm.html">PROMOÇÕES</a></li>
-                    <li><a class="dropdown-item" href="relatorios_adm.html">RELATÓRIO</a></li>
-                    <li><a class="dropdown-item" href="homeeae.html">HOME</a></li>
-                    <li><a class="dropdown-item" href="listagem.html">LISTAGEM</a></li>
-                    <li><a class="dropdown-item" href="adicsessao.html">ADICIONAR SESSÃO</a></li>
-                    <li><a class="dropdown-item" href="adcsala.html">ADICIONAR SALA</a></li>
-                    <li><a class="dropdown-item" href="paineladm.html">PAINEL ADMINISTRATIVO</a></li>
-                    <li><a class="dropdown-item" href="configPix.html">CONFIGURAR PIX</a></li>
-                </ul>
-            </div>
-
-            <div class="acao">
-
-                <div class="perfil-container">
-                    <img onclick="toggleMenu()" class="btn-perfil2" src="assets/img/do-utilizador.png" alt="">
-                    <div class="menu-perfil" id="menuPerfil">
-                        <p>Olá, <span class="nome-veisitante" id="nome-visitante">(Nome do visitante)</span></p>
-                        <ul>
-                            <li><a href="meuspedadm.html">📦 Meus Pedidos</a></li>
-                            <li><a href="editarperfiladm.html">✏️ Editar perfil</a></li>
-                            <li><a href="login.html" onclick="sair()">🚪 Sair da Conta</a></li>
-                        </ul>
-                    </div>
-
+        <div class="acao">
+            <div class="perfil-container">
+                <img onclick="toggleMenu()" class="btn-perfil2" src="assets/img/do-utilizador.png" alt="">
+                <div class="menu-perfil" id="menuPerfil">
+                    <p>Olá, <span class="nome-veisitante" id="nome-visitante">(Nome do visitante)</span></p>
+                    <ul>
+                        <li><a href="meusPedidos.html">📦 Meus Pedidos</a></li>
+                        <li><a href="editar.html">✏️ Editar perfil</a></li>
+                        <li><a href="login.html" onclick="sair()">🚪 Sair da Conta</a></li>
+                    </ul>
                 </div>
             </div>
-
+        </div>
     </header>
 
 
