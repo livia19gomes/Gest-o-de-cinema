@@ -88,47 +88,38 @@
 
     <div class="barra1"></div>
 
-    <div class="movie-container">
-        <div class="movie-poster">
-            <img src="assets/img/garland_intl_teaser2_poster_brazil_c487c296.jpeg" alt="Moana 2 Poster" id="imgfilme">
-            <a href="https://youtu.be/DFnAWpQicqo?si=1Fl2fNJxEFXpH6b8" id="trailer" class="trailer">Ver trailer</a>
-            <div class="star-rating" data-id-usuario="123" data-id-filme="1">
-                <span class="star" data-value="1">★</span>
-                <span class="star" data-value="2">★</span>
-                <span class="star" data-value="3">★</span>
-                <span class="star" data-value="4">★</span>
-                <span class="star" data-value="5">★</span>
-            </div>
-        </div>
-        <div class="movie-details">
-            <h1 class="movie-title" id="titulo"> </h1>
-            <div class="generoclass">
-                <div class="classification" id="classification">
-                    <div class="age-rating l">L</div>
-                    <div class="age-rating ten">10</div>
-                    <div class="age-rating twelve">12</div>
-                    <div class="age-rating fourteen">14</div>
-                    <div class="age-rating sixteen">16</div>
-                    <div class="age-rating eighteen">18</div>
-                </div>
-                <p>|</p>
-                <p id="genero">Animação</p>
-            </div>
-            <p class="movie-description" id="sinopse">
-                Após receber um chamado inesperado de seus ancestrais, Moana deve viajar pelos
-                mares distantes da Oceania e entrar em perigosas águas perdidas para viver uma
-                aventura sem precedentes.
-            </p>
-            <div class="location">
-                <img src="assets/img/iconelocal.png" class="localimg" alt="Local">
-                <span>BIRIGUI</span>
-            </div>
-
-            <div class="showtime-container" id="infsessao">
-                <!-- Aqui serão inseridos os horários em linhas de 4 -->
-            </div>
-        </div>
+    <!-- CONTEÚDO PRINCIPAL -->
+  <div class="movie-container">
+    <div class="movie-poster">
+      <img id="imgfilme" src="" alt="Poster do filme" />
+      <a id="trailer" class="trailer" href="#">Ver trailer</a>
+      <p id="media-avaliacao" class="fw-bold mb-2">Média: --</p>
+      <div class="fw-bold mt-2">Avalie o filme:</div>
+      <div id="votacao" class="estrelas">
+        <span class="star" data-voto="1">&#9733;</span>
+        <span class="star" data-voto="2">&#9733;</span>
+        <span class="star" data-voto="3">&#9733;</span>
+        <span class="star" data-voto="4">&#9733;</span>
+        <span class="star" data-voto="5">&#9733;</span>
+      </div>
+      <button class="btnavaliar" id="enviar-voto">Enviar Avaliação</button>
     </div>
+
+    <div class="movie-details">
+      <h1 id="titulo" class="movie-title"></h1>
+      <div class="generoclass">
+        <div id="classification" class="classification"></div>
+        <p>|</p>
+        <p id="genero"></p>
+      </div>
+      <p id="sinopse" class="movie-description"></p>
+      <div class="location">
+        <img src="assets/img/iconelocal.png" class="localimg" alt="Local" />
+        <span>BIRIGUI</span>
+      </div>
+      <div id="infsessao" class="showtime-container"></div>
+    </div>
+  </div>
 
     <div class="barra3"></div>
 
@@ -338,7 +329,66 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<script>
+     // Média de avaliação
+  $.get("http://10.92.3.162:5000/avaliacoes/media", function (filmes) {
+    const filme = filmes.find(f => f.id_filme == id_filme);
+    $("#media-avaliacao").text(filme ? `Média: ${filme.media_avaliacoes.toFixed(2)}` : "Este filme ainda não foi avaliado.");
+  }).fail(() => {
+    $("#media-avaliacao").text("Erro ao buscar média.");
+  });
 
+  // Verifica se usuário já avaliou
+  $.get(`http://10.92.3.162:5000/avaliacoes?id_usuario=${id_usuario}&id_filme=${id_filme}`, function (res) {
+    const voto = res.voto;
+    $(".star").each(function () {
+      if ($(this).data("voto") <= voto) $(this).addClass("selecionado");
+    });
+    $("#enviar-voto").replaceWith('<p class="aviso-voto">Você já avaliou este filme.</p>');
+    $(".star").css("pointer-events", "none");
+  });
+
+  // Estrelas (hover e seleção)
+  let votoSelecionado = 0;
+
+  $(".star").hover(
+    function () {
+      const voto = $(this).data("voto");
+      $(".star").each(function () {
+        $(this).toggleClass("hover", $(this).data("voto") <= voto);
+      });
+    },
+    function () {
+      $(".star").removeClass("hover");
+    }
+  ).click(function () {
+    votoSelecionado = $(this).data("voto");
+    $(".star").removeClass("selecionado").each(function () {
+      if ($(this).data("voto") <= votoSelecionado) $(this).addClass("selecionado");
+    });
+  });
+
+  // Envia avaliação
+  $("#enviar-voto").click(function () {
+    if (!votoSelecionado) {
+      return Swal.fire({ icon: "warning", text: "Selecione uma estrela antes de enviar.", toast: true, position: "top", showConfirmButton: false, timer: 3000 });
+    }
+
+    $.ajax({
+      url: "http://10.92.3.162:5000/avaliar",
+      method: "POST",
+      contentType: "application/json",
+      data: JSON.stringify({ id_usuario, id_filme, nota: votoSelecionado }),
+      success: function () {
+        Swal.fire({ icon: "success", title: "Obrigado pela sua avaliação!", toast: true, position: "top", showConfirmButton: false, timer: 2000 });
+        setTimeout(() => location.reload(), 1500);
+      },
+      error: function () {
+        Swal.fire({ icon: "error", title: "Erro ao enviar avaliação", toast: true, position: "top", showConfirmButton: false, timer: 3000 });
+      }
+    });
+  });
+</script>
 
 
 </body>
