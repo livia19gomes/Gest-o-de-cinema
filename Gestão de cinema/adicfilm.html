@@ -184,12 +184,11 @@
 
     <script>
         $("#form_cadastro").on("submit", function (e) {
-            e.preventDefault(); // impede o envio padrão do formulário
+            e.preventDefault(); 
 
             var token = localStorage.getItem("token") // pega o token do localStorage
 
-            var form = new FormData(this); //cria um objeto com os dados do formulário
-
+            var form = new FormData(this); 
             var settings = {
                 "url": "http://192.168.1.123:5000/filme_imagem", // URL da API para envio dos dados
                 "method": "POST",
@@ -216,7 +215,7 @@
                 "error": function (retorno) {
                     Swal.fire({
                         title: "Erro!",
-                        text: retorno.responseJSON?.error || "Erro ao adicionar filme",
+                        text: retorno.responseJSON?.error || "Filme ja cadastrado",
                         icon: "error"
                     });
                 }

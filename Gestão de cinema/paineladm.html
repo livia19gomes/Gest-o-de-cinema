@@ -298,7 +298,7 @@ function atualizarDashboard(dados) {
         });
     } else {
         const li = document.createElement('li');
-        li.textContent = 'Nenhum filme registrado (R$ 0)';
+        li.textContent = 'Nenhum filme registrado';
         rankingFilmesElem.appendChild(li);
     }
 
@@ -356,7 +356,6 @@ function atualizarDashboard(dados) {
             dados.filmes_mais_bilheteira.forEach(function(item) {
                 rankingFilmesElem.innerHTML = `
                     <p>${item.titulo}</p>
-                    <p>${item.bilheteira_total} </p>
                 `
             }) 
 
