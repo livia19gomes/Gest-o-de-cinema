@@ -188,7 +188,7 @@ function buscarFilme() {
   modoBuscaAtiva = true;
 
   $.ajax({
-    url: "http://10.92.3.162:5000/buscar-filmes",
+    url: "http://192.168.1.123:5000/buscar-filmes",
     method: 'GET',
     data: { termo },
     success: function (filmes) {
@@ -214,7 +214,7 @@ function buscarFilme() {
 
 function carregarSessoes(idFilme) {
   $.ajax({
-    url: `http://10.92.3.162:5000/sessoes/${idFilme}`,
+    url: `http://192.168.1.123:5000/sessoes/${idFilme}`,
     method: 'GET',
     success: function (response) {
       const sessoes = response.sessoes;
@@ -292,7 +292,7 @@ function gerarCardFilme(filme) {
     <div class=\"filme-container\">
       <div class=\"filme\">
         <a href=\"datasesoes.html?id=${id}&titulo=${encodeURIComponent(filme.titulo)}&classificacao=${filme.classificacao}&genero=${encodeURIComponent(filme.genero)}&trailer=${encodeURIComponent(filme.link || '')}&sinopse=${encodeURIComponent(filme.sinopse)}&nota=${filme.nota || ''}\">
-          <img src=\"http://10.92.3.162:5000/static/uploads/Filmes/${id}.jpeg\" alt=\"${filme.titulo}\">
+          <img src=\"http://192.168.1.123:5000/static/uploads/Filmes/${id}.jpeg\" alt=\"${filme.titulo}\">
         </a>
       </div>
       ${mostrarBotao}
@@ -303,7 +303,7 @@ function gerarCardFilme(filme) {
 function carregaProdutos() {
   modoBuscaAtiva = false;
   $.ajax({
-    url: "http://10.92.3.162:5000/filmes",
+    url: "http://192.168.1.123:5000/filmes",
     method: "GET",
     headers: { "Content-Type": "application/json" },
     success: function (response) {
