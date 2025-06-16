@@ -168,7 +168,7 @@
             }
 
             // Carrega os filmes
-            fetch("http://10.92.3.162:5000/filmes", {
+            fetch("http://192.168.1.123:5000/filmes", {
                 method: "GET",
                 headers: {
                     "Authorization": "Bearer " + token
@@ -200,7 +200,7 @@
 
                 if (!idFilme) return;
 
-                fetch(`http://10.92.3.162:5000/sessoes/${idFilme}`, {
+                fetch(`http://192.168.1.123:5000/sessoes/${idFilme}`, {
                     method: "GET",
                     headers: {
                         "Authorization": "Bearer " + token
@@ -238,7 +238,7 @@
                 const idSessao = $("#id_sessao").val();
 
                 $.ajax({
-                    url: "http://10.92.3.162:5000/promocao",
+                    url: "http://192.168.1.123:5000/promocao",
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",

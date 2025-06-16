@@ -16,33 +16,82 @@ header {
     justify-content: space-between;
     background: black;
     padding: 15px 50px;
+    color: white;
+    position: relative;
 }
 
-.div-header {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
+.btn-entrar {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+    text-decoration: none;
 }
 
 .logo {
     width: 20vh;
 }
 
-.barra {
-    margin: 10px auto 50px;
-    width: 90%;
-    height: 4px;
-    background-color: darkred;
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+    margin-right: auto;
+    margin-top: 2vh;
 }
 
-.menu-button {
-    background-color: black;
+
+nav ul li a {
     color: white;
-    border: 2px solid white;
-    padding: 10px 15px;
-    cursor: pointer;
+    text-decoration: none;
     font-size: 16px;
-    border-radius: 5px;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: red;
+}
+
+.acao {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-perfil2 {
+    width: 49px;
+}
+
+.barra {
+    width: 95%;
+    height: 4px;
+    background-color: darkred;
+    margin-bottom: 50px;
+    left: 5%;
+    position: relative;
+}
+
+/* Perfil logado */
+.perfil-logado {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.perfil-logado img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid red;
+}
+
+.perfil-logado span {
+    font-size: 16px;
+    font-weight: bold;
 }
 
 /* Container do perfil */
@@ -50,21 +99,6 @@ header {
     position: relative;
     display: inline-block;
     cursor: pointer;
-}
-
-/* Botão do perfil */
-.btn-perfil {
-    background-color: #ff0000;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-.btn-perfil:hover {
-    background-color: #cc0000;
 }
 
 /* Menu suspenso */
@@ -112,32 +146,11 @@ header {
 
 .menu-perfil ul li a:hover {
     color: #ff0000;
+    background-color: #D7D6D6;
 }
 
 .nome-veisitante {
-    color: #ff0000;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding-left: 110vh;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s;
-}
-
-.btn-perfil2 {
-    width: 49px;
-}
-
-nav ul li a:hover {
-    color: red;
+    background-color: #D7D6D6;
 }
 
 .acao {
