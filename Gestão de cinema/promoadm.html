@@ -118,7 +118,7 @@
 
     // Função para listar as promoções
     async function listarPromocoes() {
-        fetch("http://192.168.1.136:5000/promocao", {
+        fetch("http://127.0.0.1:5000/promocao", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + token
@@ -143,7 +143,7 @@
                 // Busca o ID do filme pela API para usar na URL da imagem
                 let imagemFilme = 'assets/img/filme-placeholder.jpg';
                 try {
-                    const responseFilme = await fetch(`http://192.168.1.136:5000/buscar-filmes?termo=${encodeURIComponent(promo.filme)}`, {
+                    const responseFilme = await fetch(`http://127.0.0.1:5000/buscar-filmes?termo=${encodeURIComponent(promo.filme)}`, {
                         method: "GET",
                         headers: {
                             "Authorization": "Bearer " + token
@@ -158,7 +158,7 @@
                                 filme.titulo.toLowerCase() === promo.filme.toLowerCase()
                             );
                             if (filmeEncontrado) {
-                                imagemFilme = `http://192.168.1.136:5000/static/uploads/Filmes/${filmeEncontrado.id}.jpeg`;
+                                imagemFilme = `http://127.0.0.1:5000/static/uploads/Filmes/${filmeEncontrado.id}.jpeg`;
                             }
                         }
                     }
@@ -203,7 +203,7 @@
                 cancelButtonText: 'Não, cancelar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    fetch(`http://192.168.1.136:5000/promocao/${id_sessao}`, {
+                    fetch(`http://127.0.0.1:5000/promocao/${id_sessao}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': 'Bearer ' + token
