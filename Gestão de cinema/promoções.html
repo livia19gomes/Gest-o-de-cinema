@@ -83,7 +83,7 @@
     }
 
     async function listarPromocoes() {
-      fetch("http://192.168.1.123:5000/promocao", {
+      fetch("http://192.168.1.136:5000/promocao", {
         method: "GET",
         headers: {
           "Authorization": "Bearer " + token
@@ -109,7 +109,7 @@
           let idFilme = '';
           
           try {
-            const responseFilme = await fetch(`http://192.168.1.123:5000/buscar-filmes?termo=${encodeURIComponent(promo.filme)}`, {
+            const responseFilme = await fetch(`http://192.168.1.136:5000/buscar-filmes?termo=${encodeURIComponent(promo.filme)}`, {
               method: "GET",
               headers: {
                 "Authorization": "Bearer " + token
@@ -124,7 +124,7 @@
                 );
                 if (filmeEncontrado) {
                   idFilme = filmeEncontrado.id;
-                  imagemFilme = `http://192.168.1.123:5000/static/uploads/Filmes/${filmeEncontrado.id}.jpeg`;
+                  imagemFilme = `http://192.168.1.136:5000/static/uploads/Filmes/${filmeEncontrado.id}.jpeg`;
                 }
               }
             }
