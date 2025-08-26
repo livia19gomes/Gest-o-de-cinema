@@ -125,7 +125,7 @@ function buscarFilme() {
   if (!termo) return;
 
   $.ajax({
-    url: "http://127.0.0.1:5000/buscar-filmes",
+    url: "http://192.168.1.144:5000/buscar-filmes",
     method: 'GET',
     data: { termo },
     success: function (filmes) {
@@ -158,7 +158,7 @@ function buscarFilme() {
 
 function carregarSessoes(idFilme) {
   $.ajax({
-    url: `http://127.0.0.1:5000/sessoes/${idFilme}`,
+    url: `http://192.168.1.144:5000/sessoes/${idFilme}`,
     method: 'GET',
     success: function (response) {
       const sessoes = response.sessoes;
@@ -228,7 +228,7 @@ $("#searchInput").on("keypress", function (e) {
 
 function carregaProdutos() {
   var settings = {
-    url: "http://127.0.0.1:5000/filmes",
+    url: "http://192.168.1.144:5000/filmes",
     method: "GET",
     timeout: 0,
     headers: {
@@ -244,7 +244,7 @@ function carregaProdutos() {
       html += `
         <div class="filme">
           <a href="datasesoes.html?id=${item.id_filme}&titulo=${item.titulo}&classificacao=${item.classificacao}&genero=${item.genero}&trailer=${item.link}&sinopse=${item.sinopse}&nota=${item.nota}">
-            <img src="http://127.0.0.1:5000/static/uploads/Filmes/${item.id_filme}.jpeg" alt="${item.titulo}">
+            <img src="http://192.168.1.144:5000/static/uploads/Filmes/${item.id_filme}.jpeg" alt="${item.titulo}">
           </a>
         </div>
       `;

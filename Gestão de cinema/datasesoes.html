@@ -125,7 +125,7 @@ $(document).ready(function () {
   $("#genero").text(params.get("genero") || "");
   $("#sinopse").text(params.get("sinopse") || "");
   $("#trailer").attr("href", params.get("trailer") || "#");
-  $("#imgfilme").attr("src", `http://127.0.0.1:5000/static/uploads/Filmes/${id_filme}.jpeg`);
+  $("#imgfilme").attr("src", `http://192.168.1.144:5000/static/uploads/Filmes/${id_filme}.jpeg`);
 
   const classificacao = params.get("classificacao");
   const ratings = { "10": "ten", "12": "twelve", "14": "fourteen", "16": "sixteen", "18": "eighteen", "L": "l" };
@@ -136,7 +136,7 @@ $(document).ready(function () {
   $("#nome-visitante").text(localStorage.getItem("nome") || "Visitante");
 
   // Carrega sessões
-  $.get(`http://127.0.0.1:5000/sessoes/${id_filme}`, function (res) {
+  $.get(`http://192.168.1.144:5000/sessoes/${id_filme}`, function (res) {
     const sessoes = res.sessoes || [];
     if (!sessoes.length) {
       return $("#infsessao").html('<p class="no-sessions">Nenhuma sessão disponível.</p>');
@@ -164,7 +164,7 @@ $(document).ready(function () {
   });
 
   // Média de avaliação
-  $.get("http://127.0.0.1:5000/avaliacoes/media", function (filmes) {
+  $.get("http://192.168.1.144:5000/avaliacoes/media", function (filmes) {
     const filme = filmes.find(f => f.id_filme == id_filme);
     $("#media-avaliacao").text(filme ? `Média: ${filme.media_avaliacoes.toFixed(2)}` : "Este filme ainda não foi avaliado.");
   }).fail(() => {
@@ -172,7 +172,7 @@ $(document).ready(function () {
   });
 
   // Verifica se usuário já avaliou
-  $.get(`http://127.0.0.1:5000/avaliacoes?id_usuario=${id_usuario}&id_filme=${id_filme}`, function (res) {
+  $.get(`http://192.168.1.144:5000/avaliacoes?id_usuario=${id_usuario}&id_filme=${id_filme}`, function (res) {
     const voto = res.voto;
     $(".star").each(function () {
       if ($(this).data("voto") <= voto) $(this).addClass("selecionado");
@@ -208,7 +208,7 @@ $(document).ready(function () {
     }
 
     $.ajax({
-      url: "http://127.0.0.1:5000/avaliar",
+      url: "http://192.168.1.144:5000/avaliar",
       method: "POST",
       contentType: "application/json",
       data: JSON.stringify({ id_usuario, id_filme, nota: votoSelecionado }),
