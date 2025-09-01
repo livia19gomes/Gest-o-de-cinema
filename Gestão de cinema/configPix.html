@@ -190,7 +190,7 @@
             function buscarDados() {
                 $.ajax({
                     method: "GET",
-                    url: "http://192.168.1.144:5000/configurar-pix",
+                    url: "http://10.92.3.157:5000/configurar-pix",
                     contentType: "application/json",
                     success: function (retorno) {
                         console.log("Dados recebidos:", retorno);
@@ -223,7 +223,7 @@
 
                 $.ajax({
                     method: "POST",
-                    url: "http://192.168.1.144:5000/configurar-pix",
+                    url: "http://10.92.3.157:5000/configurar-pix",
                     contentType: "application/json",
                     data: JSON.stringify(dados),
                     success: function (resposta) {
@@ -259,7 +259,7 @@
 
                 $.ajax({
                     method: "post",
-                    url: "http://192.168.1.144:5000/login",
+                    url: "http://10.92.3.157:5000/login",
                     data: dados, // envia os dados do formulário
                     contentType: "application/json",
                     success: function (retorno) { // caso o login de certo
@@ -305,7 +305,7 @@
 
             $.ajax({
                 method: "POST",
-                url: "http://192.168.1.144:5000/configurar-pix",
+                url: "http://10.92.3.157:5000/configurar-pix",
                 contentType: "application/json",
                 data: JSON.stringify(dados),
                 success: function (resposta) {
@@ -335,7 +335,7 @@
 
             $.ajax({
                 method: "post",
-                url: "http://192.168.1.144:5000/login",
+                url: "http://10.92.3.157:5000/login",
                 data: dados, // envia os dados do formulário
                 contentType: "application/json",
                 success: function (retorno) { // caso o login de certo
